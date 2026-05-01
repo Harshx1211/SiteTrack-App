@@ -4,11 +4,13 @@ import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { adminApi } from '@/lib/admin-api';
 import { formatDate } from '@/lib/utils';
+import { exportToCsv, ASSET_CSV_COLUMNS, csvRowToAsset } from '@/lib/csv';
+import CsvImportModal from '@/components/ui/CsvImportModal';
 import Badge from '@/components/ui/Badge';
 import {
   ArrowLeft, Building2, MapPin, Phone, ShieldAlert, Briefcase,
   Boxes, FileText, Edit3, Check, X, AlertTriangle, Calendar,
-  QrCode, ExternalLink, RefreshCw, ChevronRight, Download,
+  QrCode, ExternalLink, RefreshCw, ChevronRight, Download, Upload,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -27,6 +29,7 @@ export default function PropertyDetailPage() {
   const [editing, setEditing]   = useState(false);
   const [saving, setSaving]     = useState(false);
   const [form, setForm]         = useState<any>({});
+  const [showAssetImport, setShowAssetImport] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -54,6 +57,16 @@ export default function PropertyDetailPage() {
     setSaving(false);
     if (error) toast.error(error);
     else { toast.success('Property updated!'); setProperty(form); setEditing(false); }
+  };
+
+  const handleExportAssets = () => {
+    if (assets.length === 0) { toast.error('No assets to export'); return; }
+    exportToCsv(
+      `${property.name?.replace(/\s+/g, '_')}_assets_${new Date().toISOString().split('T')[0]}`,
+      assets,
+      ASSET_CSV_COLUMNS,
+    );
+    toast.success(`Exported ${assets.length} assets`);
   };
 
   if (loading) return (
@@ -227,6 +240,22 @@ export default function PropertyDetailPage() {
       {/* ASSETS */}
       {tab === 'assets' && (
         <div className="bg-white rounded-2xl border overflow-hidden" style={{ borderColor: 'var(--border)' }}>
+          {/* Assets Tab Header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--border)', background: '#f8fafc' }}>
+            <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>{assets.length} asset{assets.length !== 1 ? 's' : ''} registered</p>
+            <div className="flex items-center gap-2">
+              <button onClick={handleExportAssets}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all hover:shadow-sm"
+                style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)', background: '#fff' }}>
+                <Download size={13} /> Export CSV
+              </button>
+              <button onClick={() => setShowAssetImport(true)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all hover:shadow-sm"
+                style={{ borderColor: 'var(--accent)', color: 'var(--accent)', background: '#f0f4ff' }}>
+                <Upload size={13} /> Import CSV
+              </button>
+            </div>
+          </div>
           {assets.length === 0
             ? <div className="flex flex-col items-center py-16"><Boxes size={24} style={{ color: 'var(--text-tertiary)' }} /><p className="text-sm mt-3" style={{ color: 'var(--text-tertiary)' }}>No assets registered</p></div>
             : <div className="overflow-x-auto">
@@ -352,6 +381,18 @@ export default function PropertyDetailPage() {
                 );
               })}
         </div>
+      )}
+      {showAssetImport && (
+        <CsvImportModal
+          title="Import Assets"
+          description={`Bulk-add assets to ${property.name}. Use the template to ensure correct format.`}
+          table="assets"
+          rowMapper={(row, idx) => csvRowToAsset(row, id, idx)}
+          templateUrl="/templates/assets_import_template.csv"
+          requiredHeaders={['no','equipment_code','level','location','status','details','serial_number','install_date']}
+          onSuccess={(n) => { toast.success(`${n} assets imported!`); load(); setShowAssetImport(false); }}
+          onClose={() => setShowAssetImport(false)}
+        />
       )}
     </div>
   );

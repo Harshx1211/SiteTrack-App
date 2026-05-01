@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { adminApi, adminRead } from '@/lib/admin-api';
 import { formatDate } from '@/lib/utils';
+import { exportToCsv, JOB_CSV_COLUMNS } from '@/lib/csv';
 import Badge from '@/components/ui/Badge';
 import PageHeader from '@/components/ui/PageHeader';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
@@ -91,6 +92,16 @@ export default function JobsPage() {
   const totalPages = Math.ceil(total / PAGE_SIZE);
   const hasFilters = !!(statusF || typeF || priorityF || reportF || search);
 
+  const handleExport = () => {
+    if (jobs.length === 0) { toast.error('No jobs to export'); return; }
+    exportToCsv(
+      `uma_jobs_${new Date().toISOString().split('T')[0]}`,
+      jobs,
+      JOB_CSV_COLUMNS,
+    );
+    toast.success(`Exported ${jobs.length} jobs`);
+  };
+
   const QUICK_STATS = [
     { label: 'Scheduled',   value: stats.scheduled,   color: '#3b82f6', bg: '#eff6ff', icon: Calendar     },
     { label: 'In Progress', value: stats.in_progress,  color: '#F97316', bg: '#fff7ed', icon: Clock         },
@@ -104,12 +115,20 @@ export default function JobsPage() {
         title="Jobs"
         subtitle={`${total.toLocaleString()} total work orders`}
         action={
-          <button
-            onClick={() => setShowCreate(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-lg active:scale-95"
-            style={{ background: 'linear-gradient(135deg,#1B2D4F,#243a65)', boxShadow: '0 4px 14px rgba(27,45,79,0.3)' }}>
-            <Plus size={15} strokeWidth={2.5} /> New Job
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExport}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all hover:shadow-md active:scale-95 border"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)', background: '#fff' }}>
+              <Download size={14} /> Export CSV
+            </button>
+            <button
+              onClick={() => setShowCreate(true)}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-lg active:scale-95"
+              style={{ background: 'linear-gradient(135deg,#1B2D4F,#243a65)', boxShadow: '0 4px 14px rgba(27,45,79,0.3)' }}>
+              <Plus size={15} strokeWidth={2.5} /> New Job
+            </button>
+          </div>
         }
       />
 

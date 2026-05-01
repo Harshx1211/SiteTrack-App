@@ -40,6 +40,25 @@ export const adminApi = {
 
   upsert: <T = unknown>(table: string, data: object) =>
     call<T>({ table, action: 'upsert', data }),
+
+  /** Bulk-inserts rows from CSV import. Calls /api/admin/bulk (server-side, service_role). */
+  bulkInsert: async (
+    table: string,
+    rows: object[],
+  ): Promise<{ inserted: number; errors: string[]; error: string | null }> => {
+    try {
+      const res = await fetch('/api/admin/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table, rows }),
+      });
+      const json = await res.json();
+      if (!res.ok) return { inserted: 0, errors: [], error: json.error ?? 'Request failed' };
+      return { inserted: json.inserted ?? 0, errors: json.errors ?? [], error: null };
+    } catch (err) {
+      return { inserted: 0, errors: [], error: err instanceof Error ? err.message : 'Network error' };
+    }
+  },
 };
 
 // ─── Admin Read API ────────────────────────────────────────────────────────

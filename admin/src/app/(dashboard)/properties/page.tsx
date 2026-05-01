@@ -5,7 +5,9 @@ import { adminApi, adminRead } from '@/lib/admin-api';
 import Badge from '@/components/ui/Badge';
 import PageHeader from '@/components/ui/PageHeader';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
-import { Search, Plus, X, Building2, MapPin, Phone, ArrowUpRight, ShieldCheck, Trash2, Calendar } from 'lucide-react';
+import CsvImportModal from '@/components/ui/CsvImportModal';
+import { exportToCsv, PROPERTY_CSV_COLUMNS, csvRowToProperty } from '@/lib/csv';
+import { Search, Plus, X, Building2, MapPin, Phone, ArrowUpRight, ShieldCheck, Trash2, Calendar, Download, Upload } from 'lucide-react';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
@@ -20,6 +22,7 @@ export default function PropertiesPage() {
   const [complianceF, setComplianceF] = useState('');
   const [stateF, setStateF] = useState('');
   const [showCreate, setShowCreate] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [creating, setCreating] = useState(false);
   const [form, setForm] = useState({ name: '', address: '', suburb: '', state: 'NSW', postcode: '', site_contact_name: '', site_contact_phone: '', access_notes: '', hazard_notes: '' });
   const [deleteTarget, setDeleteTarget] = useState<any>(null);
@@ -77,6 +80,12 @@ export default function PropertiesPage() {
     setDeleteTarget(null);
   };
 
+  const handleExport = () => {
+    if (properties.length === 0) { toast.error('No properties to export'); return; }
+    exportToCsv(`uma_properties_${new Date().toISOString().split('T')[0]}`, properties, PROPERTY_CSV_COLUMNS);
+    toast.success(`Exported ${properties.length} properties`);
+  };
+
   const SUMMARY_ITEMS = [
     { label: 'Compliant',     value: summary.compliant,     color: '#22c55e', bg: '#f0fdf4', status: 'compliant' },
     { label: 'Non-Compliant', value: summary.non_compliant, color: '#ef4444', bg: '#fef2f2', status: 'non_compliant' },
@@ -90,11 +99,23 @@ export default function PropertiesPage() {
         title="Properties"
         subtitle={`${total} sites in register`}
         action={
-          <button onClick={() => setShowCreate(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-lg active:scale-95"
-            style={{ background: 'linear-gradient(135deg,#1B2D4F,#243a65)', boxShadow: '0 4px 14px rgba(27,45,79,0.3)' }}>
-            <Plus size={15} strokeWidth={2.5} /> Add Property
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={handleExport}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all hover:shadow-md active:scale-95 border"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)', background: '#fff' }}>
+              <Download size={14} /> Export CSV
+            </button>
+            <button onClick={() => setShowImport(true)}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all hover:shadow-md active:scale-95 border"
+              style={{ borderColor: 'var(--accent)', color: 'var(--accent)', background: '#f0f4ff' }}>
+              <Upload size={14} /> Import CSV
+            </button>
+            <button onClick={() => setShowCreate(true)}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:shadow-lg active:scale-95"
+              style={{ background: 'linear-gradient(135deg,#1B2D4F,#243a65)', boxShadow: '0 4px 14px rgba(27,45,79,0.3)' }}>
+              <Plus size={15} strokeWidth={2.5} /> Add Property
+            </button>
+          </div>
         }
       />
 
@@ -312,6 +333,19 @@ export default function PropertiesPage() {
           message={`Permanently delete "${deleteTarget.name}"? This will also remove all associated jobs, assets, and defects. This action cannot be undone.`}
           onConfirm={deleteProperty}
           onCancel={() => setDeleteTarget(null)}
+        />
+      )}
+
+      {showImport && (
+        <CsvImportModal
+          title="Import Properties"
+          description="Upload a CSV file to bulk-add properties. Use the template to ensure correct format."
+          table="properties"
+          rowMapper={(row) => csvRowToProperty(row)}
+          templateUrl="/templates/properties_import_template.csv"
+          requiredHeaders={['name','address','suburb','state','postcode','site_contact_name','site_contact_phone','access_notes','hazard_notes']}
+          onSuccess={(n) => { toast.success(`${n} properties imported!`); load(); setShowImport(false); }}
+          onClose={() => setShowImport(false)}
         />
       )}
     </div>
