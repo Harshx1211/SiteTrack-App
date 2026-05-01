@@ -1,8 +1,8 @@
-# SiteTrack Privacy Policy
+# UMA BUILDING SERVICES Privacy Policy
 
 **Last Updated:** April 2026
 
-SiteTrack ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application ("App"). Please read this Privacy Policy carefully.
+UMA BUILDING SERVICES ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application ("App"). Please read this Privacy Policy carefully.
 
 ## 1. Information We Collect
 
@@ -46,4 +46,4 @@ We utilize enterprise-level security measures including local device data encryp
 ## 5. Contact Us
 
 If you have questions or comments about this Privacy Policy, please contact us at:
-**Email:** support@sitetrack.com.au
+**Email:** support@uma-building-services.com.au

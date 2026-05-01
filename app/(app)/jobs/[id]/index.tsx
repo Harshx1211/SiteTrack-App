@@ -233,7 +233,7 @@ export default function JobDetailScreen() {
                 .update({ status: 'in_progress', report_url: null, updated_at: now })
                 .eq('id', job.id);
             } catch (e) {
-              console.warn('[SiteTrack] Could not sync continue-working to Supabase:', e);
+              console.warn('[UMA BUILDING SERVICES] Could not sync continue-working to Supabase:', e);
               // Add to sync queue as fallback
               addToSyncQueue('jobs', job.id, SyncOperation.Update, { status: JobStatus.InProgress, report_url: null, updated_at: now });
             }

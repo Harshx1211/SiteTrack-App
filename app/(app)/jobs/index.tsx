@@ -156,7 +156,7 @@ export default function JobsScreen() {
       map.get(key)!.push(job);
     }
     return [...map.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
+      .sort(([a], [b]) => b.localeCompare(a))
       .map(([date, data]) => ({
         date, title: dateLabel(date),
         data: data.sort((a, b) =>
@@ -173,7 +173,7 @@ export default function JobsScreen() {
         <View style={[s.heroDot2, { backgroundColor: 'rgba(255,255,255,0.04)' }]} />
         <View style={s.headerContent}>
           <View style={s.headerLeft}>
-            <Text style={s.headerEyebrow}>SITETRACK</Text>
+            <Text style={s.headerEyebrow}>UMA BUILDING SERVICES</Text>
             <Text style={s.headerTitle}>Schedule</Text>
             <Text style={s.headerSub}>
               {new Date().toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' })}

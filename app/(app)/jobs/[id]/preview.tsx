@@ -140,7 +140,7 @@ export default function PreviewScreen() {
       } catch (e: unknown) {
         if (!isMountedRef.current) return;
         const msg = e instanceof Error ? e.message : 'Unknown error occurred';
-        console.error('[SiteTrack] Preview generation failed:', e);
+        console.error('[UMA BUILDING SERVICES] Preview generation failed:', e);
         Alert.alert(
           'Generation Failed',
           'The PDF report could not be generated.\n\n' + msg,
@@ -168,7 +168,7 @@ export default function PreviewScreen() {
         UTI:         'com.adobe.pdf',
       });
     } catch (e) {
-      console.error('[SiteTrack] Share failed:', e);
+      console.error('[UMA BUILDING SERVICES] Share failed:', e);
       Toast.show({ type: 'error', text1: 'Failed to share report', text2: 'Please try again' });
     } finally {
       setIsSharing(false);

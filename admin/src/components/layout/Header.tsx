@@ -29,7 +29,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
   const [unreadCount, setUnreadCount] = useState(0);
 
   const root = '/' + pathname.split('/')[1];
-  const meta = PAGE_META[root] ?? { title: 'Admin', emoji: '⚡', desc: 'SiteTrack Admin Portal' };
+  const meta = PAGE_META[root] ?? { title: 'Admin', emoji: '⚡', desc: 'UMA BUILDING SERVICES Admin Portal' };
 
   // Fetch real unread notification count
   useEffect(() => {

@@ -1,4 +1,4 @@
-// SiteTrack colour palette — professional enterprise field-service app
+// UMA BUILDING SERVICES colour palette — professional enterprise field-service app
 // Design principle: navy authority + white clarity + orange precision
 
 const Colors = {

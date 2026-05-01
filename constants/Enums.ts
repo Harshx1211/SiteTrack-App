@@ -60,7 +60,7 @@ export enum ComplianceStatus {
   Pending = 'pending',
 }
 
-/** Role a user holds within the SiteTrack platform */
+/** Role a user holds within the UMA BUILDING SERVICES platform */
 export enum UserRole {
   Technician = 'technician',
   Subcontractor = 'subcontractor',

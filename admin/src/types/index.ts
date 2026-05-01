@@ -1,4 +1,4 @@
-// All shared TypeScript types for the SiteTrack Admin Portal
+// All shared TypeScript types for the UMA BUILDING SERVICES Admin Portal
 // Mirrors the Supabase schema exactly
 
 export type UserRole = 'technician' | 'subcontractor' | 'admin';

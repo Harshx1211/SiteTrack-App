@@ -5,11 +5,11 @@ import { Building2, Users, Boxes, Bell, Shield, Palette, Database, Check } from 
 import toast from 'react-hot-toast';
 
 const COMPANY = {
-  name: 'SiteTrack Services Pty Ltd',
+  name: 'UMA BUILDING SERVICES Services Pty Ltd',
   abn: '51 602 019 081',
-  email: 'info@sitetrack.com.au',
+  email: 'info@uma-building-services.com.au',
   phone: '1300 748 387',
-  website: 'www.sitetrack.com.au',
+  website: 'www.uma-building-services.com.au',
   address: 'P.O. Box 357',
   suburb: 'Lidcombe',
   state: 'NSW',
@@ -37,7 +37,7 @@ export default function SettingsPage() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Settings" subtitle="Configure your SiteTrack admin portal" />
+      <PageHeader title="Settings" subtitle="Configure your UMA BUILDING SERVICES admin portal" />
       <div className="flex gap-5">
         {/* Sidebar */}
         <div className="w-52 flex-shrink-0">

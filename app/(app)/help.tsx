@@ -1,5 +1,5 @@
 /**
- * SiteTrack — Help & Support Screen
+ * UMA BUILDING SERVICES — Help & Support Screen
  * Accordion guides, FAQ, feedback email, walkthrough replay, app version
  */
 import React, { useState, useCallback, useRef } from 'react';
@@ -82,7 +82,7 @@ const WALKTHROUGH_STEPS = [
   {
     emoji: '📶',
     title: 'Offline First',
-    body: 'You\'re in a basement with no signal? No problem. Everything saves to your phone instantly. When you\'re back in range, SiteTrack syncs automatically.',
+    body: 'You\'re in a basement with no signal? No problem. Everything saves to your phone instantly. When you\'re back in range, UMA BUILDING SERVICES syncs automatically.',
   },
 ];
 
@@ -191,18 +191,18 @@ const HOW_TO: { item: AccordionItem; icon: string }[] = [
     item: {
       id: 'report',
       title: 'Generating Reports',
-      content: '1. From the job detail screen, tap "Generate Report" at the bottom\n2. SiteTrack compiles all inspection data, defects, and the signature\n3. A PDF is generated on your device — no internet needed\n4. Tap "Share" to email it directly to the client or office\n5. The report includes pass/fail colour coding and a compliance footer',
+      content: '1. From the job detail screen, tap "Generate Report" at the bottom\n2. UMA BUILDING SERVICES compiles all inspection data, defects, and the signature\n3. A PDF is generated on your device — no internet needed\n4. Tap "Share" to email it directly to the client or office\n5. The report includes pass/fail colour coding and a compliance footer',
     },
   },
 ];
 
 const FAQ_ITEMS: { item: AccordionItem; icon: string }[] = [
-  { icon: '📶', item: { id: 'faq1', title: 'What if I have no signal on site?', content: 'SiteTrack is built offline-first. Everything saves to your phone instantly — inspections, photos, defects, signatures. When you\'re back in range, the app syncs automatically in the background. You\'ll see a green "All synced" banner when it\'s done.' } },
+  { icon: '📶', item: { id: 'faq1', title: 'What if I have no signal on site?', content: 'UMA BUILDING SERVICES is built offline-first. Everything saves to your phone instantly — inspections, photos, defects, signatures. When you\'re back in range, the app syncs automatically in the background. You\'ll see a green "All synced" banner when it\'s done.' } },
   { icon: '📷', item: { id: 'faq2', title: 'Can I add photos after leaving the site?', content: 'Photos taken while offline are queued and uploaded when you reconnect. The orange pending-upload dot on the Photos screen shows what\'s still waiting. Don\'t delete the photos app or clear cache until they\'ve synced.' } },
   { icon: '🔴', item: { id: 'faq3', title: 'What is a defect?', content: 'A defect is any fire safety asset that failed inspection or has an issue needing follow-up. Defects are categorised as Minor, Major, or Critical. They appear in the compliance report and are tracked until repaired.' } },
 
   { icon: '🔄', item: { id: 'faq5', title: 'How often does the app sync?', content: 'The sync engine runs automatically every 60 seconds when you\'re online. You can also force a sync from the Profile screen → "Force Sync Now". The sync uploads your local changes and pulls in any new jobs assigned by your office.' } },
-  { icon: '🔑', item: { id: 'faq6', title: 'I forgot my password — what do I do?', content: 'Contact your company administrator. They can reset your password through the SiteTrack admin portal. Your app data is not lost — it will re-sync once you log back in.' } },
+  { icon: '🔑', item: { id: 'faq6', title: 'I forgot my password — what do I do?', content: 'Contact your company administrator. They can reset your password through the UMA BUILDING SERVICES admin portal. Your app data is not lost — it will re-sync once you log back in.' } },
   { icon: '📑', item: { id: 'faq7', title: 'Who receives the PDF report?', content: 'The report is generated on your device. You can share it directly to email, WhatsApp, or any other app via the native Android share sheet. It\'s your responsibility to send it to the relevant parties — typically office admin and the client.' } },
   { icon: '⚡', item: { id: 'faq8', title: 'The app seems slow — what should I do?', content: 'Try force-closing and reopening the app. Make sure you\'re running the latest version. If the jobs list is slow, try the "Force Sync" in Profile to refresh your local database. If problems persist, send feedback using the button below.' } },
 ];
@@ -217,9 +217,9 @@ export default function HelpScreen() {
 
   const handleFeedback = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    const subject = encodeURIComponent(`SiteTrack Feedback — v${version}`);
-    const body    = encodeURIComponent('Hi SiteTrack team,\n\nI have the following feedback:\n\n');
-    Linking.openURL(`mailto:support@sitetrack.com.au?subject=${subject}&body=${body}`);
+    const subject = encodeURIComponent(`UMA BUILDING SERVICES Feedback — v${version}`);
+    const body    = encodeURIComponent('Hi UMA BUILDING SERVICES team,\n\nI have the following feedback:\n\n');
+    Linking.openURL(`mailto:support@uma-building-services.com.au?subject=${subject}&body=${body}`);
   }, [version]);
 
   return (
@@ -227,7 +227,7 @@ export default function HelpScreen() {
       <ScreenHeader 
         curved={true} 
         title="Help & Support" 
-        subtitle={`SiteTrack v${version}`} 
+        subtitle={`UMA BUILDING SERVICES v${version}`} 
         showBack={true} 
         rightComponent={<MaterialCommunityIcons name="lifebuoy" size={26} color="rgba(255,255,255,0.5)" />} 
       />
@@ -255,7 +255,7 @@ export default function HelpScreen() {
 
         {/* ── How To Use ── */}
         <Reanimated.View entering={FadeInDown.delay(80).duration(350)} style={s.section}>
-          <SectionTitle title="HOW TO USE SITETRACK" />
+          <SectionTitle title="HOW TO USE UMA BUILDING SERVICES" />
           {HOW_TO.map(({ item, icon }) => (
             <AccordionCard key={item.id} item={item} icon={icon} />
           ))}
@@ -281,7 +281,7 @@ export default function HelpScreen() {
               <Text style={{ fontSize: 20 }}>🔥</Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={[s.versionApp, { color: C.text }]}>SiteTrack — Field Service App</Text>
+              <Text style={[s.versionApp, { color: C.text }]}>UMA BUILDING SERVICES — Field Service App</Text>
               <Text style={[s.versionNum, { color: C.textTertiary }]}>Version {version} · Build 1 · Android</Text>
             </View>
           </Card>

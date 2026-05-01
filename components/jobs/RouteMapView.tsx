@@ -35,7 +35,7 @@ async function geocodeAddress(address: string) {
     const encoded = encodeURIComponent(address);
     const res = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=1`,
-      { headers: { 'User-Agent': 'SiteTrack/1.0' } }
+      { headers: { 'User-Agent': 'UMA BUILDING SERVICES/1.0' } }
     );
     const json = await res.json() as { lat: string; lon: string }[];
     if (json.length > 0) {

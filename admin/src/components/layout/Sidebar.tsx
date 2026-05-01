@@ -63,7 +63,7 @@ export default function Sidebar({ mobileOpen = false, onMobileClose }: SidebarPr
         </div>
         {(!collapsed || mobileOpen) && (
           <div className="animate-fade-in overflow-hidden flex-1">
-            <p className="text-white text-sm font-bold leading-none tracking-tight">SiteTrack</p>
+            <p className="text-white text-sm font-bold leading-none tracking-tight">UMA BUILDING SERVICES</p>
             <p className="text-xs mt-0.5 font-medium" style={{ color: 'rgba(255,255,255,0.38)' }}>Admin Portal</p>
           </div>
         )}

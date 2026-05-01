@@ -10,9 +10,9 @@ const supabaseUrl = (process.env.EXPO_PUBLIC_SUPABASE_URL || fallbackUrl).trim()
 const supabaseAnonKey = (process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || fallbackKey).trim();
 
 if (!process.env.EXPO_PUBLIC_SUPABASE_URL) {
-  console.warn('[SiteTrack] Using fallback Supabase URL. If this persists, restart Expo with --clear.');
+  console.warn('[UMA BUILDING SERVICES] Using fallback Supabase URL. If this persists, restart Expo with --clear.');
 }
-if (__DEV__) console.log(`[SiteTrack] Supabase initialized with URL: ${supabaseUrl}`);
+if (__DEV__) console.log(`[UMA BUILDING SERVICES] Supabase initialized with URL: ${supabaseUrl}`);
 
 /** Typed Supabase client — import this everywhere you need backend access */
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
@@ -49,13 +49,13 @@ export async function getCurrentUser(): Promise<User | null> {
     } = await supabase.auth.getUser();
     if (error) {
       if (error.message !== 'Auth session missing!') {
-        console.warn('[SiteTrack] getCurrentUser warning:', error.message);
+        console.warn('[UMA BUILDING SERVICES] getCurrentUser warning:', error.message);
       }
       return null;
     }
     return user;
   } catch (err) {
-    console.error('[SiteTrack] getCurrentUser unexpected error:', err);
+    console.error('[UMA BUILDING SERVICES] getCurrentUser unexpected error:', err);
     return null;
   }
 }
@@ -66,6 +66,6 @@ export async function getCurrentUser(): Promise<User | null> {
 export async function signOut(): Promise<void> {
   const { error } = await supabase.auth.signOut();
   if (error) {
-    console.error('[SiteTrack] signOut error:', error.message);
+    console.error('[UMA BUILDING SERVICES] signOut error:', error.message);
   }
 }

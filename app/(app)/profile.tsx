@@ -182,15 +182,15 @@ export default function ProfileScreen() {
         {
           id: 'version',
           icon: 'information-outline',
-          label: 'SiteTrack v1.0.0',
+          label: 'UMA BUILDING SERVICES v1.0.0',
           sub: 'Field Service Management',
         },
         {
           id: 'support',
           icon: 'email-fast-outline',
           label: 'Contact Support',
-          sub: 'support@sitetrack.com.au',
-          action: () => Alert.alert('Support', 'Email us at: support@sitetrack.com.au'),
+          sub: 'support@uma-building-services.com.au',
+          action: () => Alert.alert('Support', 'Email us at: support@uma-building-services.com.au'),
         },
       ],
     },
@@ -377,7 +377,7 @@ export default function ProfileScreen() {
           <TouchableOpacity style={s.modalBackdrop} activeOpacity={1} onPress={() => setShowSignOut(false)} />
           <View style={[s.bottomSheet, { backgroundColor: C.surface }]}>
             <View style={[s.bsHandle, { backgroundColor: C.borderStrong }]} />
-            <Text style={[s.bsTitle, { color: C.text }]}>Sign out of SiteTrack?</Text>
+            <Text style={[s.bsTitle, { color: C.text }]}>Sign out of UMA BUILDING SERVICES?</Text>
             <Text style={[s.bsSub, { color: C.textSecondary }]}>
               Unsynced offline data will be lost forever. Make sure to Force Sync before signing out.
             </Text>

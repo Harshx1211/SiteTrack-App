@@ -1,5 +1,5 @@
 -- ============================================================
--- SiteTrack — Canonical Supabase Schema
+-- UMA BUILDING SERVICES — Canonical Supabase Schema
 -- ============================================================
 -- This is the AUTHORITATIVE schema derived from the live
 -- Supabase project dump (confirmed April 2026).

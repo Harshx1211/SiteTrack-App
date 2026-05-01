@@ -1,6 +1,6 @@
-# SiteTrack — Setup Guide
+# UMA BUILDING SERVICES — Setup Guide
 
-> Everything you need to get SiteTrack running from scratch — local dev, Supabase, builds, and deployment.
+> Everything you need to get UMA BUILDING SERVICES running from scratch — local dev, Supabase, builds, and deployment.
 
 ---
 
@@ -19,8 +19,8 @@
 ## 1. Clone & Install
 
 ```bash
-git clone https://github.com/Harshx1211/sitetrack-app.git
-cd sitetrack-app
+git clone https://github.com/Harshx1211/uma-building-services-app.git
+cd uma-building-services-app
 npm install
 ```
 

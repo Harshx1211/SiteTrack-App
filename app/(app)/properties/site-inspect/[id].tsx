@@ -356,7 +356,7 @@ export default function SiteInspectScreen() {
         id: jobId, property_id: property.id, assigned_to: user.id,
         job_type: JobType.RoutineService, status: JobStatus.Completed,
         scheduled_date: today, scheduled_time: null, priority: Priority.Normal,
-        notes: 'On-site inspection form submitted via SiteTrack mobile app.',
+        notes: 'On-site inspection form submitted via UMA BUILDING SERVICES mobile app.',
         created_at: now, updated_at: now,
       };
       insertRecord('jobs', jobPayload as any);

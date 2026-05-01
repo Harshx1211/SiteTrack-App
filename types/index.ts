@@ -1,4 +1,4 @@
-// Full TypeScript interfaces for all SiteTrack domain models, API responses, and forms
+// Full TypeScript interfaces for all UMA BUILDING SERVICES domain models, API responses, and forms
 
 import {
   JobStatus,

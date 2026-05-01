@@ -9,8 +9,8 @@ import type { User } from '@/types';
 import { UserRole } from '@/constants/Enums';
 
 
-const REMEMBER_ME_KEY    = '@sitetrack/remember_me';
-const USER_PROFILE_KEY   = '@sitetrack/user_profile'; // FLOW-11: offline session cache
+const REMEMBER_ME_KEY    = '@uma-building-services/remember_me';
+const USER_PROFILE_KEY   = '@uma-building-services/user_profile'; // FLOW-11: offline session cache
 
 // ---------------------------------------------
 // Types

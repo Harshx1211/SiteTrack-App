@@ -52,7 +52,7 @@ export default function ReportsPage() {
     const csv = [keys.join(','), ...data.map(row => keys.map(k => `"${String(row[k] ?? '').replace(/"/g, '""')}"`).join(','))].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = `sitetrack-${type}-${new Date().toISOString().split('T')[0]}.csv`;
+    const a = document.createElement('a'); a.href = url; a.download = `uma-building-services-${type}-${new Date().toISOString().split('T')[0]}.csv`;
     a.click(); URL.revokeObjectURL(url);
     toast.success(`${type} exported!`);
   };

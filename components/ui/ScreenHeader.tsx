@@ -16,7 +16,7 @@ interface Props {
   eyebrow?: string;
 }
 
-export function ScreenHeader({ title, subtitle, rightComponent, showBack = false, curved = true, eyebrow = 'SITETRACK' }: Props) {
+export function ScreenHeader({ title, subtitle, rightComponent, showBack = false, curved = true, eyebrow = 'UMA BUILDING SERVICES' }: Props) {
   const C = useColors();
   const insets = useSafeAreaInsets();
 

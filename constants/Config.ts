@@ -7,22 +7,22 @@ export const SYNC_INTERVAL_MS = 60_000;
 export const MAX_PHOTOS_PER_DEFECT = 10;
 
 /** Human-readable application name used in UI strings */
-export const APP_NAME = 'SiteTrack';
+export const APP_NAME = 'UMA BUILDING SERVICES';
 
 /** Bundle / package identifier matching app.json */
-export const BUNDLE_ID = 'com.sitetrack.app';
+export const BUNDLE_ID = 'com.uma-building-services.app';
 
 /** Number of days job/asset data is retained in the local SQLite cache */
 export const OFFLINE_CACHE_DAYS = 30;
 
 /** SQLite database filename stored on-device */
-export const DB_NAME = 'sitetrack.db';
+export const DB_NAME = 'uma-building-services.db';
 
 /** AsyncStorage key used to persist the last successful sync timestamp */
-export const LAST_SYNCED_KEY = '@sitetrack/last_synced';
+export const LAST_SYNCED_KEY = '@uma-building-services/last_synced';
 
 /** AsyncStorage key for the authenticated user session */
-export const SESSION_KEY = '@sitetrack/session';
+export const SESSION_KEY = '@uma-building-services/session';
 
 /** Default page size for paginated Supabase queries */
 export const PAGE_SIZE = 50;

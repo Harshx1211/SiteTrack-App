@@ -1,5 +1,5 @@
 /**
- * SiteTrack — Home Dashboard
+ * UMA BUILDING SERVICES — Home Dashboard
  * Premium design: navy hero → 2×2 stat grid → quick actions → next up → today's jobs → weekly summary
  */
 import { useCallback, useEffect, useMemo } from 'react';
@@ -447,7 +447,7 @@ export default function HomeScreen() {
 
           <View style={s.headerContent}>
             <View style={s.headerLeft}>
-              <Text style={s.headerEyebrow}>SITETRACK</Text>
+              <Text style={s.headerEyebrow}>UMA BUILDING SERVICES</Text>
               <Text style={s.headerTitle}>{greeting()}, {firstName}</Text>
               <Text style={s.headerSub}>{todayDisplay()}</Text>
             </View>

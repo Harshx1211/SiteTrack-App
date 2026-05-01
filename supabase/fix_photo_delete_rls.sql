@@ -1,5 +1,5 @@
 -- ============================================================
--- SiteTrack — Fix: Missing DELETE RLS on inspection_photos
+-- UMA BUILDING SERVICES — Fix: Missing DELETE RLS on inspection_photos
 -- ============================================================
 -- ROOT CAUSE: The inspection_photos table had SELECT and INSERT
 -- policies but NO DELETE policy.  Supabase silently blocked every

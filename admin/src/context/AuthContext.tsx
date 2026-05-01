@@ -96,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (profile && profile.role !== 'admin') {
         // Technician / subcontractor tried to log in — kick them out
         await supabase.auth.signOut();
-        return 'Admin access only. Please use the SiteTrack mobile app.';
+        return 'Admin access only. Please use the UMA BUILDING SERVICES mobile app.';
       }
       // No profile row → allow (the fallbackUser in loadProfile handles it)
     }

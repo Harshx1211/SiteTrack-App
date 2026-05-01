@@ -60,7 +60,7 @@ export function offSyncComplete(listener: SyncCompleteListener): void {
 /** Called internally after every successful sync to notify subscribers */
 function _emitSyncComplete(): void {
   _syncListeners.forEach((fn) => {
-    try { fn(); } catch (e) { console.warn('[SiteTrack Sync] listener error:', e); }
+    try { fn(); } catch (e) { console.warn('[UMA BUILDING SERVICES Sync] listener error:', e); }
   });
 }
 
@@ -78,11 +78,11 @@ export function startSync(userId?: string): void {
 
   if (_syncInterval) {
     // Already running — just trigger an immediate sync with the updated userId
-    if (__DEV__) console.log('[SiteTrack Sync] Already running — triggering immediate sync');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] Already running — triggering immediate sync');
     void runSync(userId);
     return;
   }
-  if (__DEV__) console.log(`[SiteTrack Sync] Starting sync interval (${SYNC_INTERVAL_MS / 1000}s)`);
+  if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] Starting sync interval (${SYNC_INTERVAL_MS / 1000}s)`);
   // Run immediately on start, then repeat on interval
   void runSync(userId);
   _syncInterval = setInterval(() => {
@@ -95,7 +95,7 @@ export function stopSync(): void {
   if (_syncInterval) {
     clearInterval(_syncInterval);
     _syncInterval = null;
-    if (__DEV__) console.log('[SiteTrack Sync] Sync stopped');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] Sync stopped');
   }
   _cachedUserId = null; // Clear cached userId on sign-out
 }
@@ -129,7 +129,7 @@ export async function getSyncStatus(): Promise<SyncStatus> {
  */
 export async function runSync(userId?: string): Promise<void> {
   if (_isSyncing) {
-    if (__DEV__) console.log('[SiteTrack Sync] Already in progress — skipping');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] Already in progress — skipping');
     return;
   }
 
@@ -139,12 +139,12 @@ export async function runSync(userId?: string): Promise<void> {
     netState.isConnected === true && netState.isInternetReachable !== false;
 
   if (!isOnline) {
-    if (__DEV__) console.log('[SiteTrack Sync] Offline — skipping sync');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] Offline — skipping sync');
     return;
   }
 
   _isSyncing = true;
-  if (__DEV__) console.log('[SiteTrack Sync] Starting sync run...');
+  if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] Starting sync run...');
 
   try {
     // Use the provided userId first, then fall back to cached, then re-fetch from auth.
@@ -154,14 +154,14 @@ export async function runSync(userId?: string): Promise<void> {
     if (!resolvedUserId) {
       const user = await getCurrentUser();
       if (!user) {
-        if (__DEV__) console.log('[SiteTrack Sync] No authenticated user — skipping sync');
+        if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] No authenticated user — skipping sync');
         return;
       }
       resolvedUserId = user.id;
       _cachedUserId = resolvedUserId; // cache for future interval runs
     }
 
-    if (__DEV__) console.log(`[SiteTrack Sync] Syncing for user: ${resolvedUserId}`);
+    if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] Syncing for user: ${resolvedUserId}`);
 
     // ── 2. PUSH — Offline queue (deletes first, so they reach Supabase BEFORE the PULL)
     // Running push before pull ensures:
@@ -179,12 +179,12 @@ export async function runSync(userId?: string): Promise<void> {
     // ── 4. Update last-synced timestamp ──────────
     const now = new Date().toISOString();
     await AsyncStorage.setItem(LAST_SYNCED_KEY, now);
-    if (__DEV__) console.log(`[SiteTrack Sync] Sync complete at ${now}`);
+    if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] Sync complete at ${now}`);
 
     // ── 5. Notify all subscribers (stores reload UI) ──
     _emitSyncComplete();
   } catch (err) {
-    console.error('[SiteTrack Sync] Unexpected error during sync:', err);
+    console.error('[UMA BUILDING SERVICES Sync] Unexpected error during sync:', err);
   } finally {
     _isSyncing = false;
   }
@@ -207,12 +207,12 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
     .neq('status', 'cancelled');
 
   if (jobsError) {
-    console.error('[SiteTrack Sync] PULL jobs error:', jobsError.message);
+    console.error('[UMA BUILDING SERVICES Sync] PULL jobs error:', jobsError.message);
     return;
   }
 
   if (!jobs || jobs.length === 0) {
-    if (__DEV__) console.log('[SiteTrack Sync] No jobs to pull');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] No jobs to pull');
     return;
   }
 
@@ -234,12 +234,12 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
       .in('id', propertyIds);
 
     if (propError) {
-      console.error('[SiteTrack Sync] PULL properties error:', propError.message);
+      console.error('[UMA BUILDING SERVICES Sync] PULL properties error:', propError.message);
     } else if (properties) {
       for (const prop of properties) {
         upsertRecord('properties', prop as Record<string, string | number | boolean | null>);
       }
-      if (__DEV__) console.log(`[SiteTrack Sync] PULL: upserted ${properties.length} property/ies`);
+      if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${properties.length} property/ies`);
 
       // Pull assets for these properties
       const { data: assets, error: assetError } = await supabase
@@ -249,12 +249,12 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
         .eq('status', 'active');
 
       if (assetError) {
-        console.error('[SiteTrack Sync] PULL assets error:', assetError.message);
+        console.error('[UMA BUILDING SERVICES Sync] PULL assets error:', assetError.message);
       } else if (assets) {
         for (const asset of assets) {
           upsertRecord('assets', asset as Record<string, string | number | boolean | null>);
         }
-        if (__DEV__) console.log(`[SiteTrack Sync] PULL: upserted ${assets.length} asset(s)`);
+        if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${assets.length} asset(s)`);
       }
     }
   }
@@ -278,7 +278,7 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
           // Preserve local status — still upsert all other fields from server
           if (__DEV__) {
             console.log(
-              `[SiteTrack Sync] PULL: preserving local '${localStatus.status}' over server '${job.status}' for job ${job.id}`
+              `[UMA BUILDING SERVICES Sync] PULL: preserving local '${localStatus.status}' over server '${job.status}' for job ${job.id}`
             );
           }
           const { status: _ignored, ...rest } = job as Record<string, unknown>;
@@ -292,7 +292,7 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
     upsertedCount++;
   }
   if (__DEV__) {
-    console.log(`[SiteTrack Sync] PULL: upserted ${upsertedCount} job(s), preserved local status on ${preservedCount}`);
+    console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${upsertedCount} job(s), preserved local status on ${preservedCount}`);
   }
 
   // Pull job_assets, defects, and inspection_photos for these jobs
@@ -315,7 +315,7 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
   // Pull global inventory items
   const { data: inventoryItems, error: invError } = await supabase.from('inventory_items').select('*');
   if (invError) {
-    console.error('[SiteTrack Sync] PULL inventory_items error:', invError.message);
+    console.error('[UMA BUILDING SERVICES Sync] PULL inventory_items error:', invError.message);
   } else if (inventoryItems) {
     for (const item of inventoryItems) {
       upsertRecord('inventory_items', item as Record<string, string | number | boolean | null>);
@@ -336,7 +336,7 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
       } as Record<string, string | number | boolean | null>);
     }
     if (__DEV__ && assetTypeDefs.length > 0)
-      console.log(`[SiteTrack Sync] PULL: upserted ${assetTypeDefs.length} asset_type_definitions`);
+      console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${assetTypeDefs.length} asset_type_definitions`);
   }
 
   const { data: defectCodes } = await supabase
@@ -350,7 +350,7 @@ async function _pullJobs(userId: string, _lastSynced: string | null): Promise<vo
       } as Record<string, string | number | boolean | null>);
     }
     if (__DEV__ && defectCodes.length > 0)
-      console.log(`[SiteTrack Sync] PULL: upserted ${defectCodes.length} defect_codes`);
+      console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${defectCodes.length} defect_codes`);
   }
 }
 
@@ -366,7 +366,7 @@ async function _pullRelated(
     .in(column, ids);
 
   if (error) {
-    console.error(`[SiteTrack Sync] PULL ${table} error:`, error.message);
+    console.error(`[UMA BUILDING SERVICES Sync] PULL ${table} error:`, error.message);
     return;
   }
   if (data) {
@@ -390,8 +390,8 @@ async function _pullRelated(
     }
     if (__DEV__) {
       const upserted = data.length - skipped;
-      if (upserted > 0) console.log(`[SiteTrack Sync] PULL: upserted ${upserted} ${table} row(s)`);
-      if (skipped > 0)  console.log(`[SiteTrack Sync] PULL: skipped ${skipped} tombstoned ${table} row(s)`);
+      if (upserted > 0) console.log(`[UMA BUILDING SERVICES Sync] PULL: upserted ${upserted} ${table} row(s)`);
+      if (skipped > 0)  console.log(`[UMA BUILDING SERVICES Sync] PULL: skipped ${skipped} tombstoned ${table} row(s)`);
     }
   }
 }
@@ -404,7 +404,7 @@ async function _pushQueue(): Promise<void> {
   const pending = getPendingSyncItems();
 
   if (pending.length === 0) {
-    if (__DEV__) console.log('[SiteTrack Sync] PUSH: no pending items');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Sync] PUSH: no pending items');
     return;
   }
 
@@ -412,10 +412,10 @@ async function _pushQueue(): Promise<void> {
   const actionable = pending.filter((i) => (i.retry_count ?? 0) < MAX_SYNC_RETRIES);
   const skipped = pending.length - actionable.length;
   if (skipped > 0) {
-    if (__DEV__) console.warn(`[SiteTrack Sync] PUSH: skipping ${skipped} permanently-failed item(s)`);
+    if (__DEV__) console.warn(`[UMA BUILDING SERVICES Sync] PUSH: skipping ${skipped} permanently-failed item(s)`);
   }
 
-  if (__DEV__) console.log(`[SiteTrack Sync] PUSH: processing ${actionable.length} queue item(s)`);
+  if (__DEV__) console.log(`[UMA BUILDING SERVICES Sync] PUSH: processing ${actionable.length} queue item(s)`);
 
   for (const item of actionable) {
     try {
@@ -449,7 +449,7 @@ async function _pushQueue(): Promise<void> {
             if (filePath) {
               const { error: storageErr } = await supabase.storage.from('job-photos').remove([filePath]);
               if (storageErr && __DEV__) {
-                console.warn(`[SiteTrack Sync] Failed to delete photo binary from storage:`, storageErr.message);
+                console.warn(`[UMA BUILDING SERVICES Sync] Failed to delete photo binary from storage:`, storageErr.message);
               }
             }
           }
@@ -464,19 +464,19 @@ async function _pushQueue(): Promise<void> {
 
       if (error) {
         console.warn(
-          `[SiteTrack Sync] PUSH failed (retry ${(item.retry_count ?? 0) + 1}/${MAX_SYNC_RETRIES}) for item ${item.id} (${item.table_name}/${item.operation}): ${error.message}`
+          `[UMA BUILDING SERVICES Sync] PUSH failed (retry ${(item.retry_count ?? 0) + 1}/${MAX_SYNC_RETRIES}) for item ${item.id} (${item.table_name}/${item.operation}): ${error.message}`
         );
         // Increment retry counter; marks synced=-1 when limit is reached
         incrementSyncRetry(item.id, error.message, MAX_SYNC_RETRIES);
       } else {
         markSyncItemComplete(item.id);
         if (__DEV__) console.log(
-          `[SiteTrack Sync] PUSH: queue item ${item.id} (${item.table_name}/${item.operation}) complete`
+          `[UMA BUILDING SERVICES Sync] PUSH: queue item ${item.id} (${item.table_name}/${item.operation}) complete`
         );
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      console.warn(`[SiteTrack Sync] PUSH unexpected error for queue item ${item.id}: ${msg}`);
+      console.warn(`[UMA BUILDING SERVICES Sync] PUSH unexpected error for queue item ${item.id}: ${msg}`);
       incrementSyncRetry(item.id, msg, MAX_SYNC_RETRIES);
     }
   }

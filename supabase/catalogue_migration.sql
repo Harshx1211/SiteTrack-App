@@ -1,5 +1,5 @@
 -- ============================================================
--- SiteTrack — Catalogue Migration
+-- UMA BUILDING SERVICES — Catalogue Migration
 -- Run this ONCE in the Supabase SQL editor.
 -- Creates asset_type_definitions + defect_codes tables and
 -- seeds them with all data currently in the TypeScript constants.

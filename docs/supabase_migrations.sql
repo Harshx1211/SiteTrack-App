@@ -1,5 +1,5 @@
 -- ============================================================
--- SiteTrack — Cumulative Supabase Migrations
+-- UMA BUILDING SERVICES — Cumulative Supabase Migrations
 -- ============================================================
 -- This is the ONLY migration file you need to run for new changes.
 -- All statements are IDEMPOTENT — safe to re-run at any time.

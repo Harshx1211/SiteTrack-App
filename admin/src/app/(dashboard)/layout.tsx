@@ -41,7 +41,7 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
             ))}
           </div>
           <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-            Loading SiteTrack…
+            Loading UMA BUILDING SERVICES…
           </p>
         </div>
       </div>

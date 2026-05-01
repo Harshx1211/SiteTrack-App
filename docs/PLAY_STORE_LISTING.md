@@ -1,13 +1,13 @@
-# SiteTrack — Field Service & Compliance
+# UMA BUILDING SERVICES — Field Service & Compliance
 
 ## Short Description
 The ultimate offline-first tracking and compliance platform for Australian fire protection technicians.
 
 ## Full Description
-SiteTrack is a professional-grade, offline-first mobile app designed specifically for Australian fire protection technicians. Say goodbye to paper checklists and clunky spreadsheets—SiteTrack brings real-time job management, defect tracking, and client compliance reporting directly to your pocket, even in the deepest basements with no signal.
+UMA BUILDING SERVICES is a professional-grade, offline-first mobile app designed specifically for Australian fire protection technicians. Say goodbye to paper checklists and clunky spreadsheets—UMA BUILDING SERVICES brings real-time job management, defect tracking, and client compliance reporting directly to your pocket, even in the deepest basements with no signal.
 
 **BUILT FOR THE FIELD**
-- **Offline-First Sync:** Completely disconnected? No problem. Inspect assets, log defects, and capture signatures completely offline. SiteTrack syncs automatically when your connection returns.
+- **Offline-First Sync:** Completely disconnected? No problem. Inspect assets, log defects, and capture signatures completely offline. UMA BUILDING SERVICES syncs automatically when your connection returns.
 - **Smart Defects & Asset Logging:** Speed up inspections with context-aware defect suggestions based on asset types like Extinguishers, Hydrants, and Sprinkler Systems.
 - **Job Start & Completion:** Swipe-to-start jobs and instantly clock out when finished. Track your time on-site without opening another app.
 
@@ -24,12 +24,12 @@ SiteTrack is a professional-grade, offline-first mobile app designed specificall
 - Secure biometric login with offline-first local encryption limits access to confidential site data.
 - Robust cross-device data conflict resolution powered by our custom synchronization engine.
 
-SiteTrack is everything you need to outpace the competition. Stop working manually and focus on what you do best—saving lives and keeping buildings compliant.
+UMA BUILDING SERVICES is everything you need to outpace the competition. Stop working manually and focus on what you do best—saving lives and keeping buildings compliant.
 
-Ditch the paper. Go SiteTrack.
+Ditch the paper. Go UMA BUILDING SERVICES.
 
 ## Promotional Text
 Revolutionize how you manage fire protection and compliance in the field. Ditch paper completely with true offline-first tracking.
 
 ## Feature Graphic text
-SiteTrack: The Offline Compliance Engine.
+UMA BUILDING SERVICES: The Offline Compliance Engine.

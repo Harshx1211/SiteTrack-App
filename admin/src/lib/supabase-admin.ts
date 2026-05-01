@@ -7,7 +7,7 @@ const url  = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const key  = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 if (!key || key === 'YOUR_SERVICE_ROLE_KEY_HERE') {
-  console.warn('[SiteTrack Admin] SUPABASE_SERVICE_ROLE_KEY is not set. Write operations will fail. Add it to .env.local');
+  console.warn('[UMA BUILDING SERVICES Admin] SUPABASE_SERVICE_ROLE_KEY is not set. Write operations will fail. Add it to .env.local');
 }
 
 export const supabaseAdmin = createClient(url, key, {

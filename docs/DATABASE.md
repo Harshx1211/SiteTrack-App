@@ -1,6 +1,6 @@
-# SiteTrack — Database Reference
+# UMA BUILDING SERVICES — Database Reference
 
-> **The single source of truth for SiteTrack's database architecture.**  
+> **The single source of truth for UMA BUILDING SERVICES's database architecture.**  
 > Read this first any time you need to touch the schema, run migrations, or debug sync issues.
 
 ---
@@ -130,7 +130,7 @@ When you add a new column or table:
 
 ## Local SQLite Schema
 
-The SQLite database (`sitetrack.db`) is created automatically by `lib/database.ts → initializeSchema()` on every app launch.
+The SQLite database (`uma-building-services.db`) is created automatically by `lib/database.ts → initializeSchema()` on every app launch.
 
 It **mirrors** the Supabase schema exactly, plus two SQLite-only tables:
 

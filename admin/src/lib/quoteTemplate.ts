@@ -6,13 +6,13 @@ export interface QuoteReportData {
 }
 
 const CompanyConfig = {
-  name: 'SiteTrack Services',
+  name: 'UMA BUILDING SERVICES Services',
   addressLine1: '123 Safety Way',
   addressLine2: 'Sydney NSW 2000',
   abn: '12 345 678 901',
-  website: 'www.sitetrack.com.au',
+  website: 'www.uma-building-services.com.au',
   contactPhone: '(02) 9876 5432',
-  contactEmail: 'admin@sitetrack.com.au',
+  contactEmail: 'admin@uma-building-services.com.au',
 };
 
 function fmtDateShort(iso: string | null | undefined): string {

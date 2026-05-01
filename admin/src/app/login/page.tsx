@@ -57,7 +57,7 @@ export default function LoginPage() {
               <Zap size={21} color="#fff" strokeWidth={2.5} />
             </div>
             <div>
-              <p className="text-white font-extrabold text-xl leading-none tracking-tight">SiteTrack</p>
+              <p className="text-white font-extrabold text-xl leading-none tracking-tight">UMA BUILDING SERVICES</p>
               <p className="text-xs font-semibold mt-0.5" style={{ color: 'rgba(255,255,255,0.40)' }}>Admin Portal</p>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
         {/* Footer */}
         <div className="relative z-10 p-10 pt-6">
           <p className="text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>
-            © 2026 SiteTrack Services Pty Ltd · ABN 51 602 019 081
+            © 2026 UMA BUILDING SERVICES Services Pty Ltd · ABN 51 602 019 081
           </p>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default function LoginPage() {
               style={{ background: 'linear-gradient(135deg,#ff9a3c,#F97316)' }}>
               <Zap size={17} color="#fff" strokeWidth={2.5} />
             </div>
-            <span className="text-lg font-extrabold" style={{ color: 'var(--primary)', letterSpacing: '-0.02em' }}>SiteTrack Admin</span>
+            <span className="text-lg font-extrabold" style={{ color: 'var(--primary)', letterSpacing: '-0.02em' }}>UMA BUILDING SERVICES Admin</span>
           </div>
 
           {/* Card */}
@@ -152,7 +152,7 @@ export default function LoginPage() {
                 </label>
                 <input
                   id="email" type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  required placeholder="admin@sitetrack.com.au" autoComplete="email"
+                  required placeholder="admin@uma-building-services.com.au" autoComplete="email"
                   className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all font-medium"
                   style={{ borderColor: 'var(--border)', background: '#f8fafc', color: 'var(--text)' }}
                   onFocus={e => { e.target.style.borderColor = 'var(--primary)'; e.target.style.background = '#fff'; e.target.style.boxShadow = '0 0 0 3px rgba(27,45,79,0.08)'; }}

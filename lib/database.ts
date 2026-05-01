@@ -1,4 +1,4 @@
-// Local SQLite database service — opens sitetrack.db and provides full CRUD + sync queue helpers
+// Local SQLite database service — opens uma-building-services.db and provides full CRUD + sync queue helpers
 import { DB_NAME } from "@/constants/Config";
 import { SyncOperation } from "@/constants/Enums";
 import type { SyncQueueItem } from "@/types";
@@ -11,7 +11,7 @@ import { generateUUID } from "@/utils/uuid";
 
 let _db: SQLite.SQLiteDatabase | null = null;
 
-/** Opens (or creates) sitetrack.db — call once at app startup */
+/** Opens (or creates) uma-building-services.db — call once at app startup */
 export function openDatabase(): SQLite.SQLiteDatabase {
   if (!_db) {
     _db = SQLite.openDatabaseSync(DB_NAME);
@@ -27,7 +27,7 @@ export function openDatabase(): SQLite.SQLiteDatabase {
 
 function _safeColumnName(col: string): string {
   if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(col)) {
-    throw new Error(`[SiteTrack DB] Unsafe column name rejected: "${col}"`);
+    throw new Error(`[UMA BUILDING SERVICES DB] Unsafe column name rejected: "${col}"`);
   }
   return col;
 }
@@ -296,7 +296,7 @@ export function initializeSchema(): void {
 
   if (__DEV__)
     console.log(
-      `[SiteTrack DB] Schema at version ${currentVersion}, target ${CURRENT_SCHEMA_VERSION}`,
+      `[UMA BUILDING SERVICES DB] Schema at version ${currentVersion}, target ${CURRENT_SCHEMA_VERSION}`,
     );
 
   // Migration 1: push_token column on users (was originally a try/catch hack)
@@ -304,12 +304,12 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE users ADD COLUMN push_token TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 1: added users.push_token");
+        console.log("[UMA BUILDING SERVICES DB] Migration 1: added users.push_token");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       // Only ignore "already exists" errors — surface everything else
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 1 failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 1 failed:", msg);
       }
     }
     currentVersion = 1;
@@ -324,12 +324,12 @@ export function initializeSchema(): void {
       db.runSync("ALTER TABLE job_assets ADD COLUMN checklist_data TEXT;");
       if (__DEV__)
         console.log(
-          "[SiteTrack DB] Migration 2a: added job_assets.checklist_data",
+          "[UMA BUILDING SERVICES DB] Migration 2a: added job_assets.checklist_data",
         );
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 2a failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 2a failed:", msg);
       }
     }
     try {
@@ -338,12 +338,12 @@ export function initializeSchema(): void {
       );
       if (__DEV__)
         console.log(
-          "[SiteTrack DB] Migration 2b: added job_assets.is_compliant",
+          "[UMA BUILDING SERVICES DB] Migration 2b: added job_assets.is_compliant",
         );
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 2b failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 2b failed:", msg);
       }
     }
     currentVersion = 2;
@@ -360,11 +360,11 @@ export function initializeSchema(): void {
       );
       if (__DEV__)
         console.log(
-          "[SiteTrack DB] Migration 3: added idx_job_assets_asset_id",
+          "[UMA BUILDING SERVICES DB] Migration 3: added idx_job_assets_asset_id",
         );
     } catch (err: unknown) {
       console.error(
-        "[SiteTrack DB] Migration 3 failed:",
+        "[UMA BUILDING SERVICES DB] Migration 3 failed:",
         err instanceof Error ? err.message : String(err),
       );
     }
@@ -382,22 +382,22 @@ export function initializeSchema(): void {
       );
       if (__DEV__)
         console.log(
-          "[SiteTrack DB] Migration 4a: added sync_queue.retry_count",
+          "[UMA BUILDING SERVICES DB] Migration 4a: added sync_queue.retry_count",
         );
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 4a failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 4a failed:", msg);
       }
     }
     try {
       db.runSync("ALTER TABLE sync_queue ADD COLUMN last_error TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 4b: added sync_queue.last_error");
+        console.log("[UMA BUILDING SERVICES DB] Migration 4b: added sync_queue.last_error");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 4b failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 4b failed:", msg);
       }
     }
     currentVersion = 4;
@@ -411,21 +411,21 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE assets ADD COLUMN variant TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 5a: added assets.variant");
+        console.log("[UMA BUILDING SERVICES DB] Migration 5a: added assets.variant");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 5a failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 5a failed:", msg);
       }
     }
     try {
       db.runSync("ALTER TABLE assets ADD COLUMN asset_ref TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 5b: added assets.asset_ref");
+        console.log("[UMA BUILDING SERVICES DB] Migration 5b: added assets.asset_ref");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 5b failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 5b failed:", msg);
       }
     }
     currentVersion = 5;
@@ -439,32 +439,32 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE defects ADD COLUMN defect_code TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 6a: added defects.defect_code");
+        console.log("[UMA BUILDING SERVICES DB] Migration 6a: added defects.defect_code");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 6a failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 6a failed:", msg);
       }
     }
     try {
       db.runSync("ALTER TABLE defects ADD COLUMN quote_price REAL;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 6b: added defects.quote_price");
+        console.log("[UMA BUILDING SERVICES DB] Migration 6b: added defects.quote_price");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 6b failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 6b failed:", msg);
       }
     }
     // Also add item_name to quote_items to support custom (non-inventory) line items
     try {
       db.runSync("ALTER TABLE quote_items ADD COLUMN item_name TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 6c: added quote_items.item_name");
+        console.log("[UMA BUILDING SERVICES DB] Migration 6c: added quote_items.item_name");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 6c failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 6c failed:", msg);
       }
     }
     currentVersion = 6;
@@ -478,11 +478,11 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE inspection_photos ADD COLUMN defect_id TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 7: added inspection_photos.defect_id");
+        console.log("[UMA BUILDING SERVICES DB] Migration 7: added inspection_photos.defect_id");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 7 failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 7 failed:", msg);
       }
     }
     currentVersion = 7;
@@ -498,7 +498,7 @@ export function initializeSchema(): void {
     db.runSync(
       `INSERT OR REPLACE INTO meta (key, value) VALUES ('schema_version', '8')`,
     );
-    if (__DEV__) console.log('[SiteTrack DB] Migration 8: catalogue cache tables ready');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES DB] Migration 8: catalogue cache tables ready');
   }
 
   // Migration 9: report_url column on jobs table
@@ -506,11 +506,11 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE jobs ADD COLUMN report_url TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 9: added jobs.report_url");
+        console.log("[UMA BUILDING SERVICES DB] Migration 9: added jobs.report_url");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 9 failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 9 failed:", msg);
       }
     }
     currentVersion = 9;
@@ -530,9 +530,9 @@ export function initializeSchema(): void {
         );
       `);
       if (__DEV__)
-        console.log('[SiteTrack DB] Migration 10a: created deleted_photo_ids tombstone table');
+        console.log('[UMA BUILDING SERVICES DB] Migration 10a: created deleted_photo_ids tombstone table');
     } catch (err: unknown) {
-      console.error('[SiteTrack DB] Migration 10a failed:', err instanceof Error ? err.message : String(err));
+      console.error('[UMA BUILDING SERVICES DB] Migration 10a failed:', err instanceof Error ? err.message : String(err));
     }
 
     // 10b — Reset permanently-failed photo delete operations so they are retried.
@@ -548,9 +548,9 @@ export function initializeSchema(): void {
            AND synced     = -1`,
       );
       if (__DEV__ && result.changes > 0)
-        console.log(`[SiteTrack DB] Migration 10b: reset ${result.changes} permanently-failed photo delete(s) for retry`);
+        console.log(`[UMA BUILDING SERVICES DB] Migration 10b: reset ${result.changes} permanently-failed photo delete(s) for retry`);
     } catch (err: unknown) {
-      console.error('[SiteTrack DB] Migration 10b failed:', err instanceof Error ? err.message : String(err));
+      console.error('[UMA BUILDING SERVICES DB] Migration 10b failed:', err instanceof Error ? err.message : String(err));
     }
 
     currentVersion = 10;
@@ -562,11 +562,11 @@ export function initializeSchema(): void {
     try {
       db.runSync("ALTER TABLE properties ADD COLUMN next_inspection_date TEXT;");
       if (__DEV__)
-        console.log("[SiteTrack DB] Migration 11: added properties.next_inspection_date");
+        console.log("[UMA BUILDING SERVICES DB] Migration 11: added properties.next_inspection_date");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (!msg.includes("duplicate column")) {
-        console.error("[SiteTrack DB] Migration 11 failed:", msg);
+        console.error("[UMA BUILDING SERVICES DB] Migration 11 failed:", msg);
       }
     }
     currentVersion = 11;
@@ -577,7 +577,7 @@ export function initializeSchema(): void {
 
   if (__DEV__)
     console.log(
-      `[SiteTrack DB] Schema initialised at version ${currentVersion}`,
+      `[UMA BUILDING SERVICES DB] Schema initialised at version ${currentVersion}`,
     );
 
   // Seed inventory from Uptick defect codes on first run
@@ -607,7 +607,7 @@ export function insertRecord(table: string, data: RecordData): number | null {
     );
     return result.lastInsertRowId;
   } catch (err) {
-    console.error(`[SiteTrack DB] insertRecord(${table}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] insertRecord(${table}) error:`, err);
     return null;
   }
 }
@@ -633,7 +633,7 @@ export function updateRecord(
     );
     return result.changes;
   } catch (err) {
-    console.error(`[SiteTrack DB] updateRecord(${table}, ${id}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] updateRecord(${table}, ${id}) error:`, err);
     return 0;
   }
 }
@@ -651,7 +651,7 @@ export function deleteRecord(table: string, id: string): number {
     );
     return result.changes;
   } catch (err) {
-    console.error(`[SiteTrack DB] deleteRecord(${table}, ${id}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] deleteRecord(${table}, ${id}) error:`, err);
     return 0;
   }
 }
@@ -666,7 +666,7 @@ export function getRecord<T = RecordData>(table: string, id: string): T | null {
     );
     return row ?? null;
   } catch (err) {
-    console.error(`[SiteTrack DB] getRecord(${table}, ${id}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getRecord(${table}, ${id}) error:`, err);
     return null;
   }
 }
@@ -692,7 +692,7 @@ export function queryRecords<T = RecordData>(
       values as SQLite.SQLiteBindValue[],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] queryRecords(${table}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] queryRecords(${table}) error:`, err);
     return [];
   }
 }
@@ -717,7 +717,7 @@ export function queryRecordsIn<T = RecordData>(
       ids as SQLite.SQLiteBindValue[],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] queryRecordsIn(${table}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] queryRecordsIn(${table}) error:`, err);
     return [];
   }
 }
@@ -745,7 +745,7 @@ export function getJobsForTechnician<T = RecordData>(userId: string): T[] {
       [userId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getJobsForTechnician(${userId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getJobsForTechnician(${userId}) error:`, err);
     return [];
   }
 }
@@ -758,7 +758,7 @@ export function cleanOldSyncQueueItems(): void {
       `DELETE FROM sync_queue WHERE synced = 1 AND created_at < datetime('now', '-7 days')`,
     );
   } catch (err) {
-    console.error("[SiteTrack DB] cleanOldSyncQueueItems error:", err);
+    console.error("[UMA BUILDING SERVICES DB] cleanOldSyncQueueItems error:", err);
   }
 }
 
@@ -771,10 +771,10 @@ export function clearFailedSyncItems(tableName: string): void {
     ]);
     if (__DEV__)
       console.log(
-        `[SiteTrack DB] Cleared failed sync queue items for table: ${tableName}`,
+        `[UMA BUILDING SERVICES DB] Cleared failed sync queue items for table: ${tableName}`,
       );
   } catch (err) {
-    console.error(`[SiteTrack DB] clearFailedSyncItems error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] clearFailedSyncItems error:`, err);
   }
 }
 
@@ -788,7 +788,7 @@ export function getAssetsForProperty<T = RecordData>(propertyId: string): T[] {
     );
   } catch (err) {
     console.error(
-      `[SiteTrack DB] getAssetsForProperty(${propertyId}) error:`,
+      `[UMA BUILDING SERVICES DB] getAssetsForProperty(${propertyId}) error:`,
       err,
     );
     return [];
@@ -813,7 +813,7 @@ export function getDefectsForJob<T = RecordData>(jobId: string): T[] {
       [jobId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getDefectsForJob(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getDefectsForJob(${jobId}) error:`, err);
     return [];
   }
 }
@@ -837,7 +837,7 @@ export function addToSyncQueue(
       [tableName, recordId, operation, JSON.stringify(payload)],
     );
   } catch (err) {
-    console.error("[SiteTrack DB] addToSyncQueue error:", err);
+    console.error("[UMA BUILDING SERVICES DB] addToSyncQueue error:", err);
   }
 }
 
@@ -858,9 +858,9 @@ export function cancelPendingPhotoUpload(recordId: string): void {
       [recordId],
     );
     if (__DEV__)
-      console.log(`[SiteTrack DB] Cancelled pending photo_upload for record ${recordId}`);
+      console.log(`[UMA BUILDING SERVICES DB] Cancelled pending photo_upload for record ${recordId}`);
   } catch (err) {
-    console.error(`[SiteTrack DB] cancelPendingPhotoUpload(${recordId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] cancelPendingPhotoUpload(${recordId}) error:`, err);
   }
 }
 
@@ -877,9 +877,9 @@ export function recordDeletedPhoto(photoId: string): void {
       [photoId],
     );
     if (__DEV__)
-      console.log(`[SiteTrack DB] Tombstoned deleted photo ${photoId}`);
+      console.log(`[UMA BUILDING SERVICES DB] Tombstoned deleted photo ${photoId}`);
   } catch (err) {
-    console.error(`[SiteTrack DB] recordDeletedPhoto(${photoId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] recordDeletedPhoto(${photoId}) error:`, err);
   }
 }
 
@@ -896,7 +896,7 @@ export function getDeletedPhotoIds(): Set<string> {
     );
     return new Set(rows.map(r => r.id));
   } catch (err) {
-    console.error(`[SiteTrack DB] getDeletedPhotoIds error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getDeletedPhotoIds error:`, err);
     return new Set();
   }
 }
@@ -909,7 +909,7 @@ export function getPendingSyncItems(): SyncQueueItem[] {
       `SELECT * FROM sync_queue WHERE synced = 0 ORDER BY created_at ASC`,
     );
   } catch (err) {
-    console.error("[SiteTrack DB] getPendingSyncItems error:", err);
+    console.error("[UMA BUILDING SERVICES DB] getPendingSyncItems error:", err);
     return [];
   }
 }
@@ -920,7 +920,7 @@ export function markSyncItemComplete(id: number): void {
     const db = openDatabase();
     db.runSync(`UPDATE sync_queue SET synced = 1 WHERE id = ?`, [id]);
   } catch (err) {
-    console.error(`[SiteTrack DB] markSyncItemComplete(${id}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] markSyncItemComplete(${id}) error:`, err);
   }
 }
 
@@ -949,7 +949,7 @@ export function incrementSyncRetry(
         [newCount, errorMessage, id],
       );
       console.warn(
-        `[SiteTrack DB] Sync item ${id} permanently failed after ${newCount} retries: ${errorMessage}`,
+        `[UMA BUILDING SERVICES DB] Sync item ${id} permanently failed after ${newCount} retries: ${errorMessage}`,
       );
     } else {
       db.runSync(
@@ -958,7 +958,7 @@ export function incrementSyncRetry(
       );
     }
   } catch (err) {
-    console.error(`[SiteTrack DB] incrementSyncRetry(${id}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] incrementSyncRetry(${id}) error:`, err);
   }
 }
 
@@ -995,7 +995,7 @@ export function upsertRecord(table: string, data: RecordData): void {
       );
     }
   } catch (err) {
-    console.error(`[SiteTrack DB] upsertRecord(${table}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] upsertRecord(${table}) error:`, err);
   }
 }
 
@@ -1030,7 +1030,7 @@ export function getJobById<T = RecordData>(jobId: string): T | null {
       ) ?? null
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getJobById(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getJobById(${jobId}) error:`, err);
     return null;
   }
 }
@@ -1079,7 +1079,7 @@ export function getAssetsWithJobResults<T = RecordData>(
       [jobId, propertyId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getAssetsWithJobResults error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getAssetsWithJobResults error:`, err);
     return [];
   }
 }
@@ -1106,7 +1106,7 @@ export function getJobsForProperty<T = RecordData>(
     );
   } catch (err) {
     console.error(
-      `[SiteTrack DB] getJobsForProperty(${propertyId}) error:`,
+      `[UMA BUILDING SERVICES DB] getJobsForProperty(${propertyId}) error:`,
       err,
     );
     return [];
@@ -1122,7 +1122,7 @@ export function getTimeLogsForJob<T = RecordData>(jobId: string): T[] {
       [jobId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getTimeLogsForJob(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getTimeLogsForJob(${jobId}) error:`, err);
     return [];
   }
 }
@@ -1137,7 +1137,7 @@ export function getSignatureForJob<T = RecordData>(jobId: string): T | null {
       ]) ?? null
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getSignatureForJob(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getSignatureForJob(${jobId}) error:`, err);
     return null;
   }
 }
@@ -1151,7 +1151,7 @@ export function getPhotosForJob<T = RecordData>(jobId: string): T[] {
       [jobId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getPhotosForJob(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getPhotosForJob(${jobId}) error:`, err);
     return [];
   }
 }
@@ -1179,7 +1179,7 @@ export function getServiceHistoryForAsset<T = RecordData>(
     );
   } catch (err) {
     console.error(
-      `[SiteTrack DB] getServiceHistoryForAsset(${assetId}) error:`,
+      `[UMA BUILDING SERVICES DB] getServiceHistoryForAsset(${assetId}) error:`,
       err,
     );
     return [];
@@ -1201,7 +1201,7 @@ export function getJobStatus(jobId: string): { status: string; updated_at: strin
       ) ?? null
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getJobStatus(${jobId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getJobStatus(${jobId}) error:`, err);
     return null;
   }
 }
@@ -1219,7 +1219,7 @@ export function getDefectsForAsset<T = RecordData>(assetId: string): T[] {
       [assetId],
     );
   } catch (err) {
-    console.error(`[SiteTrack DB] getDefectsForAsset(${assetId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getDefectsForAsset(${assetId}) error:`, err);
     return [];
   }
 }
@@ -1245,7 +1245,7 @@ export function getAllDefects<T = RecordData>(status?: string): T[] {
        ORDER BY d.created_at DESC`,
     );
   } catch (err) {
-    console.error('[SiteTrack DB] getAllDefects error:', err);
+    console.error('[UMA BUILDING SERVICES DB] getAllDefects error:', err);
     return [];
   }
 }
@@ -1269,7 +1269,7 @@ export function getDefectById<T = RecordData>(defectId: string): T | null {
       [defectId],
     ) ?? null;
   } catch (err) {
-    console.error(`[SiteTrack DB] getDefectById(${defectId}) error:`, err);
+    console.error(`[UMA BUILDING SERVICES DB] getDefectById(${defectId}) error:`, err);
     return null;
   }
 }
@@ -1300,10 +1300,10 @@ export function seedInventoryFromDefectCodes(): void {
       }
     });
 
-    if (__DEV__) console.log(`[SiteTrack DB] Seeded ${pricedCodes.length} inventory items from Uptick codes`);
+    if (__DEV__) console.log(`[UMA BUILDING SERVICES DB] Seeded ${pricedCodes.length} inventory items from Uptick codes`);
   } catch (err) {
     // Non-fatal — inventory seeding is best-effort
-    console.warn('[SiteTrack DB] seedInventoryFromDefectCodes failed:', err);
+    console.warn('[UMA BUILDING SERVICES DB] seedInventoryFromDefectCodes failed:', err);
   }
 }
 

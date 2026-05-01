@@ -22,7 +22,7 @@ import { Card, Input } from '@/components/ui';
 import { useColors } from '@/hooks/useColors';
 import { useNetworkStatus } from '@/hooks/useNetworkStatus';
 
-const REMEMBER_ME_KEY = '@sitetrack/remember_me';
+const REMEMBER_ME_KEY = '@uma-building-services/remember_me';
 
 export default function LoginScreen() {
   const { signIn, isLoading, error, clearError } = useAuth();
@@ -92,7 +92,7 @@ export default function LoginScreen() {
   const handleBiometric = async () => {
     try {
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Sign in to SiteTrack',
+        promptMessage: 'Sign in to UMA BUILDING SERVICES',
         cancelLabel: 'Use Password',
         disableDeviceFallback: false,
       });
@@ -131,7 +131,7 @@ export default function LoginScreen() {
 
           {/* Brand name + tagline */}
           <Animated.View entering={FadeInDown.delay(200).duration(500)} style={styles.brandBlock}>
-            <Text style={styles.brandName}>SiteTrack</Text>
+            <Text style={styles.brandName}>UMA BUILDING SERVICES</Text>
             <Text style={styles.brandTagline}>Field Service Management</Text>
           </Animated.View>
 
@@ -266,7 +266,7 @@ export default function LoginScreen() {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerTxt}>© 2025 SiteTrack · Built for Australian trade professionals</Text>
+          <Text style={styles.footerTxt}>© 2025 UMA BUILDING SERVICES · Built for Australian trade professionals</Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

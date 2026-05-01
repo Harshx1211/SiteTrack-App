@@ -83,7 +83,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
   return Promise.race([
     p,
     new Promise<never>((_, rej) =>
-      setTimeout(() => rej(new Error(`[SiteTrack] Timeout: ${label} exceeded ${ms}ms`)), ms)
+      setTimeout(() => rej(new Error(`[UMA BUILDING SERVICES] Timeout: ${label} exceeded ${ms}ms`)), ms)
     ),
   ]);
 }
@@ -132,7 +132,7 @@ async function toDataUri(
 
     if (url.startsWith('http://') || url.startsWith('https://')) {
       const safeName  = url.split('/').pop()?.split('?')[0] ?? `dl-${Date.now()}.jpg`;
-      const destPath  = `${FileSystem.cacheDirectory}sitetrack_${Date.now()}_${safeName}`;
+      const destPath  = `${FileSystem.cacheDirectory}uma-building-services_${Date.now()}_${safeName}`;
       const dl        = await FileSystem.downloadAsync(url, destPath);
       downloadedPath  = dl.uri;
       localUri        = downloadedPath;
@@ -140,7 +140,7 @@ async function toDataUri(
       const validUri = getValidLocalUri(url);
       const info     = await FileSystem.getInfoAsync(validUri);
       if (!info.exists) {
-        console.warn('[SiteTrack] toDataUri: file not found:', validUri);
+        console.warn('[UMA BUILDING SERVICES] toDataUri: file not found:', validUri);
         return null;
       }
       localUri = validUri;
@@ -157,7 +157,7 @@ async function toDataUri(
       localUri       = compressedPath;
     } catch (manipErr) {
       // Non-fatal — proceed with original file at original size
-      console.warn('[SiteTrack] toDataUri: ImageManipulator failed (using original):', manipErr);
+      console.warn('[UMA BUILDING SERVICES] toDataUri: ImageManipulator failed (using original):', manipErr);
     }
 
     // ── Step 3: read as base64 ────────────────────────────────────────────────
@@ -170,7 +170,7 @@ async function toDataUri(
     cache.set(url, dataUri);
     return dataUri;
   } catch (err) {
-    console.warn('[SiteTrack] toDataUri failed:', url, err);
+    console.warn('[UMA BUILDING SERVICES] toDataUri failed:', url, err);
     return null;
   } finally {
     // Always clean up temp files
@@ -395,7 +395,7 @@ async function uploadPdfToStorage(jobId: string, pdfUri: string): Promise<string
       });
 
     if (uploadError) {
-      console.warn('[SiteTrack] PDF upload error:', uploadError.message);
+      console.warn('[UMA BUILDING SERVICES] PDF upload error:', uploadError.message);
       return null;
     }
 
@@ -413,22 +413,22 @@ async function uploadPdfToStorage(jobId: string, pdfUri: string): Promise<string
       .eq('id', jobId);
 
     if (dbError) {
-      console.warn('[SiteTrack] Failed to update jobs in Supabase:', dbError.message);
+      console.warn('[UMA BUILDING SERVICES] Failed to update jobs in Supabase:', dbError.message);
     } else {
-      console.log('[SiteTrack] Supabase jobs row updated: report_url + status=completed');
+      console.log('[UMA BUILDING SERVICES] Supabase jobs row updated: report_url + status=completed');
     }
 
     // Also update local SQLite so the UI reflects completion immediately
     try {
       updateRecord('jobs', jobId, { report_url: reportUrl, status: 'completed', updated_at: now });
     } catch (e) {
-      console.warn('[SiteTrack] Local DB update failed (non-fatal):', e);
+      console.warn('[UMA BUILDING SERVICES] Local DB update failed (non-fatal):', e);
     }
 
-    console.log('[SiteTrack] PDF uploaded successfully:', reportUrl);
+    console.log('[UMA BUILDING SERVICES] PDF uploaded successfully:', reportUrl);
     return reportUrl;
   } catch (err) {
-    console.warn('[SiteTrack] uploadPdfToStorage unexpected error:', err);
+    console.warn('[UMA BUILDING SERVICES] uploadPdfToStorage unexpected error:', err);
     return null;
   }
 }
@@ -465,7 +465,7 @@ export async function generateJobReport(
 
     return { pdfUri, html, title, reportUrl };
   } catch (error) {
-    console.error('[SiteTrack] PDF generation error:', error);
+    console.error('[UMA BUILDING SERVICES] PDF generation error:', error);
     throw error;
   }
 }

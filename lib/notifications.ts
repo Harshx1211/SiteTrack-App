@@ -1,5 +1,5 @@
 /**
- * SiteTrack — Daily Summary Notification Scheduler
+ * UMA BUILDING SERVICES — Daily Summary Notification Scheduler
  * Schedules a local "Job summary" notification at 6:00 PM each day.
  * Requires expo-notifications (already installed).
  * Only schedules if the user has granted permission.
@@ -29,7 +29,7 @@ export async function scheduleDailySummaryNotification(
     if (jobCount === 0) return; // Nothing to notify about
 
     const content: Notifications.NotificationContentInput = {
-      title: '📋 SiteTrack Daily Summary',
+      title: '📋 UMA BUILDING SERVICES Daily Summary',
       body: jobCount === 1
         ? `You have 1 job scheduled today.${pendingCount > 0 ? ` ${pendingCount} change${pendingCount > 1 ? 's' : ''} pending sync.` : ' All synced ✓'}`
         : `You have ${jobCount} jobs scheduled today.${pendingCount > 0 ? ` ${pendingCount} unsynced change${pendingCount > 1 ? 's' : ''}.` : ' All synced ✓'}`,
@@ -44,9 +44,9 @@ export async function scheduleDailySummaryNotification(
     };
 
     await Notifications.scheduleNotificationAsync({ content, trigger });
-    if (__DEV__) console.log('[SiteTrack Notifications] Daily summary scheduled for 18:00');
+    if (__DEV__) console.log('[UMA BUILDING SERVICES Notifications] Daily summary scheduled for 18:00');
   } catch (err) {
-    console.warn('[SiteTrack Notifications] scheduleDailySummaryNotification error:', err);
+    console.warn('[UMA BUILDING SERVICES Notifications] scheduleDailySummaryNotification error:', err);
   }
 }
 
@@ -57,7 +57,7 @@ export async function cancelDailySummaryNotification(): Promise<void> {
     const daily = scheduled.filter(n => n.content.data?.type === 'daily_summary');
     await Promise.all(daily.map(n => Notifications.cancelScheduledNotificationAsync(n.identifier)));
   } catch (err) {
-    console.warn('[SiteTrack Notifications] cancelDailySummaryNotification error:', err);
+    console.warn('[UMA BUILDING SERVICES Notifications] cancelDailySummaryNotification error:', err);
   }
 }
 
@@ -97,9 +97,9 @@ export async function scheduleJobReminder(
         date: reminderDt,
       },
     });
-    if (__DEV__) console.log(`[SiteTrack Notifications] Reminder scheduled for ${jobId}`);
+    if (__DEV__) console.log(`[UMA BUILDING SERVICES Notifications] Reminder scheduled for ${jobId}`);
   } catch (err) {
-    console.warn('[SiteTrack Notifications] scheduleJobReminder error:', err);
+    console.warn('[UMA BUILDING SERVICES Notifications] scheduleJobReminder error:', err);
   }
 }
 

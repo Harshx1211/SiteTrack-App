@@ -1,5 +1,5 @@
 -- ==========================================
--- SITE TRACK — DUMMY DATA SCRIPT
+-- UMA BUILDING SERVICES — DUMMY DATA SCRIPT
 -- RUN THIS IN SUPABASE SQL EDITOR
 -- ==========================================
 
@@ -18,7 +18,7 @@ BEGIN
   -- Create internal User Profile (if not created via trigger)
   INSERT INTO public.users (id, email, full_name, role, phone)
   VALUES 
-    (test_tech_id, 'tech@sitetrack.test', 'Test Technician', 'technician', '0400000000')
+    (test_tech_id, 'tech@uma-building-services.test', 'Test Technician', 'technician', '0400000000')
   ON CONFLICT (id) DO UPDATE SET full_name = 'Test Technician';
 
   -- Create Properties
