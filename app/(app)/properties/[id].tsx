@@ -305,7 +305,7 @@ export default function PropertyDetailScreen() {
         </Animated.View>
 
         {/* ── SAFETY ALERTS ──────────────────────────────── */}
-        {(property.hazard_notes || property.access_notes) && (
+        {(property.hazard_notes || property.access_notes || property.site_note) && (
           <Animated.View entering={FadeInDown.delay(160).duration(400)} style={{ marginHorizontal: 16, gap: 10, marginTop: 8 }}>
             {property.hazard_notes && (
               <View style={[s.alertCard, { backgroundColor: C.errorLight, borderColor: C.error }]}>
@@ -326,6 +326,17 @@ export default function PropertyDetailScreen() {
                 <View style={{ flex: 1 }}>
                   <Text style={[s.alertTitle, { color: C.infoDark }]}>🔑 Access Instructions</Text>
                   <Text style={[s.alertBody, { color: C.infoDark }]}>{property.access_notes}</Text>
+                </View>
+              </View>
+            )}
+            {property.site_note && (
+              <View style={[s.alertCard, { backgroundColor: '#F0FDF4', borderColor: '#16A34A' }]}>
+                <View style={[s.alertIconWrap, { backgroundColor: '#16A34A' }]}>
+                  <MaterialCommunityIcons name="note-text-outline" size={16} color="#FFF" />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[s.alertTitle, { color: '#14532D' }]}>📝 Site Note</Text>
+                  <Text style={[s.alertBody, { color: '#166534' }]}>{property.site_note}</Text>
                 </View>
               </View>
             )}

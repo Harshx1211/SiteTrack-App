@@ -167,11 +167,12 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     </div>
   </div>
 
-  ${p.access_notes || p.hazard_notes ? `
+  ${p.access_notes || p.hazard_notes || p.site_note ? `
   <div class="section">
     <div class="section-title">Site Notes</div>
     ${p.access_notes ? `<div style="margin-bottom:8px"><p style="font-size:11px;font-weight:600;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Access Notes</p><div class="notes-box">${p.access_notes}</div></div>` : ''}
-    ${p.hazard_notes ? `<p style="font-size:11px;font-weight:600;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Hazard Notes</p><div class="notes-box" style="background:#fef2f2;border-color:#fecaca;color:#7f1d1d">⚠ ${p.hazard_notes}</div>` : ''}
+    ${p.hazard_notes ? `<div style="margin-bottom:8px"><p style="font-size:11px;font-weight:600;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Hazard Notes</p><div class="notes-box" style="background:#fef2f2;border-color:#fecaca;color:#7f1d1d">⚠ ${p.hazard_notes}</div></div>` : ''}
+    ${p.site_note ? `<div><p style="font-size:11px;font-weight:600;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Site Note</p><div class="notes-box" style="background:#f0fdf4;border-color:#bbf7d0;color:#14532d">📝 ${p.site_note}</div></div>` : ''}
   </div>` : ''}
 
   <!-- Asset Register -->

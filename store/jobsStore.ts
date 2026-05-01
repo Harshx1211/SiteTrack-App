@@ -15,6 +15,7 @@ export type JobWithProperty = Job & {
   property_compliance_status: string | null;
   access_notes: string | null;
   hazard_notes: string | null;
+  site_note: string | null;
   site_contact_name: string | null;
   site_contact_phone: string | null;
 };

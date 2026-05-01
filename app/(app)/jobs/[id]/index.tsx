@@ -41,7 +41,7 @@ type JobDetail = {
   property_name: string | null; property_address: string | null;
   property_suburb: string | null; property_state: string | null; property_postcode: string | null;
   site_contact_name: string | null; site_contact_phone: string | null;
-  access_notes: string | null; hazard_notes: string | null;
+  access_notes: string | null; hazard_notes: string | null; site_note: string | null;
   report_url: string | null;
 };
 
@@ -382,7 +382,7 @@ export default function JobDetailScreen() {
           )}
 
           {/* ── SAFETY ALERTS ─────────────────────────────────────── */}
-          {(job.hazard_notes || job.access_notes) && (
+          {(job.hazard_notes || job.access_notes || (job as any).site_note) && (
             <Animated.View entering={FadeInDown.delay(60).duration(360)} style={{ gap: 8 }}>
               {job.hazard_notes && (
                 <View style={[s.alertBox, { backgroundColor: C.errorLight, borderColor: C.error + '40' }]}>
@@ -399,6 +399,15 @@ export default function JobDetailScreen() {
                   <View style={{ flex: 1 }}>
                     <Text style={[s.alertTitle, { color: C.infoDark }]}>🔑 Access Notes</Text>
                     <Text style={[s.alertBody, { color: C.infoDark }]}>{job.access_notes}</Text>
+                  </View>
+                </View>
+              )}
+              {(job as any).site_note && (
+                <View style={[s.alertBox, { backgroundColor: '#F0FDF4', borderColor: '#16A34A40' }]}>
+                  <MaterialCommunityIcons name="note-text-outline" size={18} color="#166534" />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[s.alertTitle, { color: '#14532D' }]}>📝 Site Note</Text>
+                    <Text style={[s.alertBody, { color: '#166534' }]}>{(job as any).site_note}</Text>
                   </View>
                 </View>
               )}

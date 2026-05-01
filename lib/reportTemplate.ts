@@ -572,6 +572,7 @@ function buildPage1(data: ReportData, pageNum: number, totalPages: number): stri
   const propName    = j.property_name ?? '—';
   const address     = [j.property_address, j.property_suburb, j.property_state, j.property_postcode].filter(Boolean).join(', ');
   const siteContact = j.site_contact_name ?? 'Not provided';
+  const siteNote    = j.site_note ?? null;
   const perfDate    = fmtDateShort(j.updated_at ?? job.scheduled_date);
   const jobType     = fmtJobType(job.job_type);
   const refNum      = shortId(job.id, 6);
@@ -630,6 +631,12 @@ function buildPage1(data: ReportData, pageNum: number, totalPages: number): stri
         <div class="info-val">${perfDate}</div>
       </div>
     </div>
+
+    ${siteNote ? `
+    <div class="sec-bar" style="background:#166534;border-left-color:#4ADE80">📝 Site Note</div>
+    <div class="scope-wrap" style="background:#F0FDF4;border:1px solid #BBF7D0;border-top:none;border-radius:0 0 6px 6px">
+      <p style="font-size:11px;color:#166534;line-height:1.7">${siteNote}</p>
+    </div>` : ''}
 
     <div class="sec-bar">Scope of Works</div>
     <div class="scope-wrap">

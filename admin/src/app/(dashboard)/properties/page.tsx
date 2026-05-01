@@ -24,7 +24,7 @@ export default function PropertiesPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [creating, setCreating] = useState(false);
-  const [form, setForm] = useState({ name: '', address: '', suburb: '', state: 'NSW', postcode: '', site_contact_name: '', site_contact_phone: '', access_notes: '', hazard_notes: '' });
+  const [form, setForm] = useState({ name: '', address: '', suburb: '', state: 'NSW', postcode: '', site_contact_name: '', site_contact_phone: '', access_notes: '', hazard_notes: '', site_note: '' });
   const [deleteTarget, setDeleteTarget] = useState<any>(null);
 
   // Compliance summary
@@ -69,7 +69,7 @@ export default function PropertiesPage() {
     const { error } = await adminApi.insert('properties', { ...form, compliance_status: 'pending' });
     setCreating(false);
     if (error) toast.error(error);
-    else { toast.success('Property created!'); setShowCreate(false); setForm({ name: '', address: '', suburb: '', state: 'NSW', postcode: '', site_contact_name: '', site_contact_phone: '', access_notes: '', hazard_notes: '' }); load(); }
+    else { toast.success('Property created!'); setShowCreate(false); setForm({ name: '', address: '', suburb: '', state: 'NSW', postcode: '', site_contact_name: '', site_contact_phone: '', access_notes: '', hazard_notes: '', site_note: '' }); load(); }
   };
 
   const deleteProperty = async () => {
@@ -310,6 +310,15 @@ export default function PropertiesPage() {
                   className="w-full px-3.5 py-2.5 rounded-xl border text-sm outline-none resize-none transition-all"
                   style={{ borderColor: 'var(--border)', background: '#f8fafc', color: 'var(--text)' }}
                   onFocus={e => { e.target.style.borderColor = 'var(--primary)'; e.target.style.background = '#fff'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = '#f8fafc'; }} />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1.5" style={{ color: 'var(--text)' }}>Site Note</label>
+                <textarea value={form.site_note} onChange={e => setForm(p => ({ ...p, site_note: e.target.value }))} rows={2}
+                  placeholder="General note for technicians about this site…"
+                  className="w-full px-3.5 py-2.5 rounded-xl border text-sm outline-none resize-none transition-all"
+                  style={{ borderColor: 'var(--border)', background: '#f8fafc', color: 'var(--text)' }}
+                  onFocus={e => { e.target.style.borderColor = '#16a34a'; e.target.style.background = '#fff'; }}
                   onBlur={e => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = '#f8fafc'; }} />
               </div>
               <div className="flex gap-3 pt-2">

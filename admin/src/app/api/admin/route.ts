@@ -8,7 +8,7 @@ const ALLOWED_TABLES = [
   'jobs', 'properties', 'assets', 'defects', 'users',
   'quotes', 'quote_items', 'notifications', 'time_logs',
   'job_assets', 'inspection_photos', 'signatures', 'inventory_items',
-  'asset_type_definitions', 'defect_codes',
+  'asset_type_definitions', 'defect_codes', 'enquiries',
 ];
 
 type Action = 'insert' | 'update' | 'delete' | 'upsert';

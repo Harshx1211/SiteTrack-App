@@ -42,6 +42,7 @@ export interface Property {
   site_contact_phone: string | null;
   access_notes: string | null;
   hazard_notes: string | null;
+  site_note: string | null;
   compliance_status: ComplianceStatus;
   next_inspection_date: string | null;
   created_at: string;

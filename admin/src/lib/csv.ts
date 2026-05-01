@@ -102,6 +102,7 @@ export const PROPERTY_CSV_COLUMNS: CsvColumn[] = [
   { header: 'next_inspection_date',accessor: r => (r as any).next_inspection_date },
   { header: 'access_notes',        accessor: r => (r as any).access_notes },
   { header: 'hazard_notes',        accessor: r => (r as any).hazard_notes },
+  { header: 'site_note',           accessor: r => (r as any).site_note },
 ];
 
 /** Canonical columns for the Assets CSV export / import.
@@ -186,6 +187,7 @@ export function csvRowToProperty(row: Record<string, string>): Record<string, un
     site_contact_phone: row['site_contact_phone'] || null,
     access_notes:       row['access_notes'] || null,
     hazard_notes:       row['hazard_notes'] || null,
+    site_note:          row['site_note'] || null,
     compliance_status:  row['compliance_status'] || 'pending',
     next_inspection_date: row['next_inspection_date'] || null,
   };

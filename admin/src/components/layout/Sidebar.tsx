@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import {
   LayoutDashboard, Briefcase, Building2,
   Users, FileText, Settings, Bell, ChevronLeft, ChevronRight,
-  ClipboardList, LogOut, Zap, X, BookOpen,
+  ClipboardList, LogOut, Zap, X, BookOpen, MessageSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -24,6 +24,7 @@ const NAV_SECTIONS = [
     items: [
       { label: 'Technicians',   href: '/technicians',   icon: Users },
       { label: 'Quotes',        href: '/quotes',        icon: FileText },
+      { label: 'Enquiries',     href: '/enquiries',     icon: MessageSquare },
       { label: 'Catalogue',     href: '/catalogue',     icon: BookOpen },
       { label: 'Reports',       href: '/reports',       icon: ClipboardList },
     ],

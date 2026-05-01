@@ -13,7 +13,7 @@
       "bundleIdentifier": "com.uma-building-services.app"
     },
     "android": {
-      "package": "com.uma-building-services.app",
+      "package": "com.uma_building_services.app",
       "adaptiveIcon": {
         "backgroundColor": "#1B2D4F",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

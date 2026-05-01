@@ -1,8 +1,8 @@
 // Root layout — providers, theme, toast. NO navigation logic here.
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, TouchableOpacity, Text, AppState, AppStateStatus, Platform, Animated } from 'react-native';
 import { Slot, ErrorBoundaryProps } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
@@ -13,6 +13,7 @@ import { useAuthStore } from '@/store/authStore';
 import { initializeSchema, cleanOldSyncQueueItems, clearFailedSyncItems } from '@/lib/database';
 import { configureNotificationHandler, requestNotificationPermission } from '@/lib/notifications';
 import Colors from '@/constants/Colors';
+import * as ScreenCapture from 'expo-screen-capture';
 
 const paperLightTheme = {
   ...MD3LightTheme,
@@ -47,6 +48,40 @@ const paperDarkTheme = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const { isLoading, restoreSession } = useAuthStore();
+
+  // ── Screenshot / Screen-capture prevention ─────────────────────────────────
+  // Android: FLAG_SECURE is set natively in MainActivity.kt (blocks at OS level)
+  // iOS + JS layer: expo-screen-capture blocks screen recording
+  // iOS app-switcher: AppState blur overlay hides content when app backgrounds
+  const [isObscured, setIsObscured] = useState(false);
+  const obscureOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Activate expo-screen-capture prevention (works on both platforms)
+    ScreenCapture.preventScreenCaptureAsync();
+    return () => {
+      ScreenCapture.allowScreenCaptureAsync();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== 'ios') return;
+    // On iOS, show a solid overlay when the app goes to background so the OS
+    // cannot capture a screenshot of sensitive content in the app switcher.
+    const handleAppStateChange = (nextState: AppStateStatus) => {
+      if (nextState === 'inactive' || nextState === 'background') {
+        setIsObscured(true);
+        Animated.timing(obscureOpacity, { toValue: 1, duration: 100, useNativeDriver: true }).start();
+      } else {
+        Animated.timing(obscureOpacity, { toValue: 0, duration: 150, useNativeDriver: true }).start(() =>
+          setIsObscured(false)
+        );
+      }
+    };
+    const sub = AppState.addEventListener('change', handleAppStateChange);
+    return () => sub.remove();
+  }, [obscureOpacity]);
+  // ──────────────────────────────────────────────────────────────────────────
 
   // 1. Initialise local SQLite then restore session — MUST be sequential.
   //    On a fresh install, restoreSession() can trigger loadJobs() → SQLite queries
@@ -99,6 +134,17 @@ export default function RootLayout() {
           <Slot />
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
           <Toast />
+          {/* iOS app-switcher screenshot shield */}
+          {isObscured && (
+            <Animated.View
+              style={[
+                StyleSheet.absoluteFillObject,
+                styles.screenshotShield,
+                { opacity: obscureOpacity },
+              ]}
+              pointerEvents="none"
+            />
+          )}
         </PaperProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
@@ -123,4 +169,8 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  screenshotShield: {
+    backgroundColor: '#0D1B2E',
+    zIndex: 9999,
+  },
 });

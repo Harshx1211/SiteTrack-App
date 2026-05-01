@@ -37,7 +37,7 @@ function _safeColumnName(col: string): string {
 // Increment CURRENT_SCHEMA_VERSION whenever you add a migration below.
 // ─────────────────────────────────────────────
 
-const CURRENT_SCHEMA_VERSION = 11;
+const CURRENT_SCHEMA_VERSION = 12;
 
 // ─────────────────────────────────────────────
 // Schema initialisation
@@ -84,6 +84,7 @@ export function initializeSchema(): void {
       site_contact_phone TEXT,
       access_notes       TEXT,
       hazard_notes       TEXT,
+      site_note          TEXT,
       compliance_status  TEXT NOT NULL DEFAULT 'pending',
       next_inspection_date TEXT,
       created_at         TEXT NOT NULL DEFAULT (datetime('now')),
@@ -575,6 +576,24 @@ export function initializeSchema(): void {
     );
   }
 
+  // Migration 12: site_note on properties table
+  if (currentVersion < 12) {
+    try {
+      db.runSync("ALTER TABLE properties ADD COLUMN site_note TEXT;");
+      if (__DEV__)
+        console.log("[UMA BUILDING SERVICES DB] Migration 12: added properties.site_note");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (!msg.includes("duplicate column")) {
+        console.error("[UMA BUILDING SERVICES DB] Migration 12 failed:", msg);
+      }
+    }
+    currentVersion = 12;
+    db.runSync(
+      `INSERT OR REPLACE INTO meta (key, value) VALUES ('schema_version', '12')`,
+    );
+  }
+
   if (__DEV__)
     console.log(
       `[UMA BUILDING SERVICES DB] Schema initialised at version ${currentVersion}`,
@@ -736,7 +755,7 @@ export function getJobsForTechnician<T = RecordData>(userId: string): T[] {
               p.postcode AS property_postcode,
               p.compliance_status AS property_compliance_status,
               p.site_contact_name, p.site_contact_phone,
-              p.access_notes, p.hazard_notes
+              p.access_notes, p.hazard_notes, p.site_note
        FROM jobs j
        LEFT JOIN properties p ON j.property_id = p.id
        WHERE j.assigned_to = ?
@@ -1022,6 +1041,7 @@ export function getJobById<T = RecordData>(jobId: string): T | null {
               p.site_contact_phone,
               p.access_notes,
               p.hazard_notes,
+              p.site_note,
               p.compliance_status AS property_compliance_status
        FROM jobs j
        LEFT JOIN properties p ON j.property_id = p.id

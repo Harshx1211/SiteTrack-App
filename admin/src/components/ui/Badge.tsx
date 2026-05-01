@@ -32,6 +32,11 @@ const STATUS_MAP: Record<string, { label: string; bg: string; color: string; dot
   high:          { label: 'High',         bg: '#fff7ed', color: '#c2410c', dot: '#f97316' },
   normal:        { label: 'Normal',       bg: '#eff6ff', color: '#1d4ed8', dot: '#3b82f6' },
   low:           { label: 'Low',          bg: '#f8fafc', color: '#475569', dot: '#94a3b8' },
+  // Enquiry statuses
+  new:           { label: 'New',          bg: '#eff6ff', color: '#1d4ed8', dot: '#3b82f6' },
+  contacted:     { label: 'Contacted',    bg: '#fff7ed', color: '#c2410c', dot: '#F97316' },
+  converted:     { label: 'Converted',   bg: '#f0fdf4', color: '#15803d', dot: '#22c55e' },
+  closed:        { label: 'Closed',       bg: '#f8fafc', color: '#64748b', dot: '#94a3b8' },
 };
 
 export default function Badge({ value }: BadgeProps) {

@@ -52,6 +52,7 @@ export default function PropertyDetailPage() {
       state: form.state, postcode: form.postcode,
       site_contact_name: form.site_contact_name, site_contact_phone: form.site_contact_phone,
       access_notes: form.access_notes, hazard_notes: form.hazard_notes,
+      site_note: form.site_note,
       compliance_status: form.compliance_status, next_inspection_date: form.next_inspection_date || null,
     }, id);
     setSaving(false);
@@ -232,6 +233,7 @@ export default function PropertyDetailPage() {
               <p className="font-bold" style={{ color: 'var(--text)' }}>Site Notes</p>
               <F label="Access Notes" field="access_notes" multiline />
               <F label="Hazard Notes" field="hazard_notes" multiline />
+              <F label="Site Note" field="site_note" multiline />
             </div>
           </div>
         </div>
