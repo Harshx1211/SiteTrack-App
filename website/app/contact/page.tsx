@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Mail, Send, CheckCircle, AlertCircle, Loader, Phone, ClipboardList, CalendarClock } from 'lucide-react';
 
 const SERVICE_OPTIONS = [
   'Routine Service — Monthly',
@@ -33,6 +33,7 @@ export default function ContactPage() {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
     setStatus('sending');
+    setErrorMsg('');
     try {
       const res = await fetch('/api/enquiry', {
         method: 'POST',
@@ -42,7 +43,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error('Server error');
       setStatus('success');
       setForm({ name: '', company: '', email: '', phone: '', service_type: '', property_address: '', message: '' });
-    } catch (err) {
+    } catch {
       setStatus('error');
       setErrorMsg('Something went wrong. Please try again or email us directly.');
     }
@@ -57,169 +58,196 @@ export default function ContactPage() {
         position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
-          position: 'absolute', width: 400, height: 400, borderRadius: '50%',
-          background: 'rgba(249,115,22,0.10)', filter: 'blur(80px)',
-          top: '-80px', right: '-60px',
+          position: 'absolute', width: 480, height: 480, borderRadius: '50%',
+          background: 'rgba(249,115,22,0.10)', filter: 'blur(90px)',
+          top: '-100px', right: '-80px', pointerEvents: 'none',
         }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '6px 16px', marginBottom: 20,
-            background: 'rgba(249,115,22,0.15)', border: '1px solid rgba(249,115,22,0.25)',
-            borderRadius: 999,
+            display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', marginBottom: 20,
+            background: 'rgba(249,115,22,0.14)', border: '1px solid rgba(249,115,22,0.25)', borderRadius: 999,
           }}>
             <Mail size={13} color="#F97316" />
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: '#fdba74' }}>
               Contact Us
             </span>
           </div>
-          <h1 className="heading-xl" style={{ color: 'white', marginBottom: 16, maxWidth: 560 }}>
+          <h1 className="heading-xl" style={{ color: 'white', marginBottom: 16, maxWidth: 520 }}>
             Get In Touch
           </h1>
-          <p className="body-lg" style={{ color: 'rgba(255,255,255,0.65)', maxWidth: 520 }}>
-            Send us an enquiry and we&apos;ll get back to you to discuss your property&apos;s service needs.
+          <p className="body-lg" style={{ color: 'rgba(255,255,255,0.62)', maxWidth: 500 }}>
+            Send us an enquiry and we&apos;ll get back to you to discuss your property&apos;s service requirements.
           </p>
         </div>
       </section>
 
-      {/* Content */}
+      {/* Main content */}
       <section className="section" style={{ background: '#F8FAFC' }}>
         <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 2fr',
-            gap: 48,
-            alignItems: 'start',
-          }}>
+          {/* ← Using .contact-grid CSS class — 1fr 2fr → stacks on mobile */}
+          <div className="contact-grid">
 
-            {/* Left — Info */}
+            {/* Left sidebar */}
             <div>
-              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#0F1E3C', marginBottom: 8 }}>Enquiry Details</h2>
-              <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.7, marginBottom: 32 }}>
-                Fill in the form with as much detail as possible about your property and service requirements, and we&apos;ll be in touch.
+              <h2 style={{ fontSize: 19, fontWeight: 800, color: '#0F1E3C', marginBottom: 8, letterSpacing: '-0.025em' }}>
+                Enquiry Details
+              </h2>
+              <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.75, marginBottom: 32 }}>
+                Fill in the form with as much detail as possible and we&apos;ll be in touch promptly.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+              {/* Contact info */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 40 }}>
+                <a href="mailto:info@umabuildingservices.com.au"
+                  style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}
+                  className="contact-info-link"
+                >
                   <div style={{
-                    width: 44, height: 44, borderRadius: 12,
+                    width: 44, height: 44, borderRadius: 12, flexShrink: 0,
                     background: 'rgba(249,115,22,0.10)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
                     <Mail size={18} color="#F97316" />
                   </div>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: '#0F1E3C', marginBottom: 3 }}>Email</p>
-                    <a href="mailto:info@umabuildingservices.com.au"
-                      style={{ fontSize: 14, color: '#64748b', transition: 'color 200ms' }}
-                      onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#F97316'}
-                      onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#64748b'}
-                    >
-                      info@umabuildingservices.com.au
-                    </a>
+                    <p style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>Email</p>
+                    <p style={{ fontSize: 14, color: '#334155', fontWeight: 500 }}>info@umabuildingservices.com.au</p>
                   </div>
-                </div>
+                </a>
 
                 <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
                   <div style={{
-                    width: 44, height: 44, borderRadius: 12,
-                    background: 'rgba(27,45,79,0.08)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                    width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+                    background: 'rgba(27,45,79,0.07)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
-                    <MapPin size={18} color="#1B2D4F" />
+                    <Phone size={18} color="#1B2D4F" />
                   </div>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 700, color: '#0F1E3C', marginBottom: 3 }}>Location</p>
-                    <p style={{ fontSize: 14, color: '#64748b' }}>Australia</p>
+                    <p style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>Response Time</p>
+                    <p style={{ fontSize: 14, color: '#334155', fontWeight: 500 }}>We aim to respond within 1 business day</p>
                   </div>
                 </div>
               </div>
 
               {/* What happens next */}
-              <div style={{
-                marginTop: 40, background: '#0F1E3C',
-                borderRadius: 16, padding: 24,
-              }}>
-                <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: 16 }}>
-                  What Happens Next
-                </p>
-                {[
-                  'We receive and review your enquiry',
-                  'We contact you to discuss your requirements',
-                  'We schedule a service visit for your site',
-                  'Your job is created in our system',
-                ].map((step, i) => (
-                  <div key={step} style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 12,
-                    padding: '10px 0',
-                    borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  }}>
-                    <div style={{
-                      width: 22, height: 22, borderRadius: '50%',
-                      background: 'rgba(249,115,22,0.20)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                      fontSize: 11, fontWeight: 800, color: '#F97316',
+              <div style={{ background: '#0F1E3C', borderRadius: 18, padding: '24px 22px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{
+                  position: 'absolute', top: -30, right: -30, width: 150, height: 150,
+                  borderRadius: '50%', background: 'rgba(249,115,22,0.10)', filter: 'blur(30px)', pointerEvents: 'none',
+                }} />
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'rgba(249,115,22,0.80)', marginBottom: 18 }}>
+                    What Happens Next
+                  </p>
+                  {[
+                    'We receive and review your enquiry',
+                    'We contact you to discuss requirements',
+                    'We schedule a service visit for your site',
+                    'Your job is set up in our system',
+                  ].map((step, i) => (
+                    <div key={step} style={{
+                      display: 'flex', alignItems: 'flex-start', gap: 12,
+                      padding: '10px 0',
+                      borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                     }}>
-                      {i + 1}
+                      <div style={{
+                        width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
+                        background: 'rgba(249,115,22,0.18)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 11, fontWeight: 900, color: '#F97316',
+                      }}>
+                        {i + 1}
+                      </div>
+                      <span style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.65)', lineHeight: 1.65 }}>{step}</span>
                     </div>
-                    <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>{step}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Service quick links */}
+              <div style={{ marginTop: 28 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#94a3b8', marginBottom: 14 }}>
+                  Popular Services
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {['Monthly', '3-Monthly', 'Annual', 'Defect Repair'].map(s => (
+                    <span key={s}
+                      onClick={() => set('service_type', SERVICE_OPTIONS.find(o => o.includes(s)) ?? '')}
+                      style={{
+                        padding: '5px 12px', borderRadius: 999, fontSize: 12.5, fontWeight: 600,
+                        background: '#f1f5f9', color: '#475569', cursor: 'pointer',
+                        border: '1px solid #e2e8f0', transition: 'all 150ms',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.10)';
+                        (e.currentTarget as HTMLElement).style.color = '#ea6900';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249,115,22,0.25)';
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLElement).style.background = '#f1f5f9';
+                        (e.currentTarget as HTMLElement).style.color = '#475569';
+                        (e.currentTarget as HTMLElement).style.borderColor = '#e2e8f0';
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right — Form */}
+            {/* Form card */}
             <div style={{
-              background: 'white',
-              borderRadius: 24,
-              border: '1px solid #e2e8f0',
-              padding: 40,
-              boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+              background: 'white', borderRadius: 22,
+              border: '1px solid #e2e8f0', padding: '40px 36px',
+              boxShadow: '0 4px 32px rgba(0,0,0,0.06)',
             }}>
               {status === 'success' ? (
-                <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                <div style={{ textAlign: 'center', padding: '48px 0' }}>
                   <div style={{
-                    width: 72, height: 72, borderRadius: '50%',
-                    background: 'rgba(34,197,94,0.12)',
+                    width: 80, height: 80, borderRadius: '50%',
+                    background: 'rgba(34,197,94,0.10)', border: '2px solid rgba(34,197,94,0.20)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    margin: '0 auto 20px',
+                    margin: '0 auto 24px',
                   }}>
-                    <CheckCircle size={36} color="#22c55e" />
+                    <CheckCircle size={38} color="#22c55e" />
                   </div>
-                  <h3 style={{ fontSize: 22, fontWeight: 800, color: '#0F1E3C', marginBottom: 12 }}>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: '#0F1E3C', marginBottom: 12, letterSpacing: '-0.02em' }}>
                     Enquiry Received!
                   </h3>
-                  <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, maxWidth: 360, margin: '0 auto 28px' }}>
+                  <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.75, maxWidth: 340, margin: '0 auto 32px' }}>
                     Thank you for getting in touch. We&apos;ll review your details and contact you shortly.
                   </p>
-                  <button
-                    onClick={() => setStatus('idle')}
-                    className="btn btn-navy"
-                    style={{ fontSize: 14 }}
-                  >
+                  <button onClick={() => setStatus('idle')} className="btn btn-navy" style={{ fontSize: 14 }}>
                     Send Another Enquiry
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} id="enquiry-form">
-                  <h3 style={{ fontSize: 20, fontWeight: 800, color: '#0F1E3C', marginBottom: 24 }}>
+                <form onSubmit={handleSubmit} id="enquiry-form" noValidate>
+                  <h3 style={{ fontSize: 19, fontWeight: 800, color: '#0F1E3C', marginBottom: 6, letterSpacing: '-0.02em' }}>
                     Service Enquiry
                   </h3>
+                  <p style={{ fontSize: 13.5, color: '#94a3b8', marginBottom: 28 }}>
+                    Fields marked * are required
+                  </p>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                  {/* Row 1 */}
+                  <div className="form-grid-2">
                     <div className="form-group">
                       <label className="form-label" htmlFor="inp-name">Full Name *</label>
-                      <input id="inp-name" className="form-input" placeholder="Your name"
+                      <input id="inp-name" className="form-input" placeholder="Your full name"
                         value={form.name} onChange={e => set('name', e.target.value)} required />
                     </div>
                     <div className="form-group">
-                      <label className="form-label" htmlFor="inp-company">Company / Organisation</label>
-                      <input id="inp-company" className="form-input" placeholder="Your company"
+                      <label className="form-label" htmlFor="inp-company">Company</label>
+                      <input id="inp-company" className="form-input" placeholder="Company or organisation"
                         value={form.company} onChange={e => set('company', e.target.value)} />
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                  {/* Row 2 */}
+                  <div className="form-grid-2">
                     <div className="form-group">
                       <label className="form-label" htmlFor="inp-email">Email Address *</label>
                       <input id="inp-email" type="email" className="form-input" placeholder="you@company.com"
@@ -232,45 +260,39 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div style={{ marginBottom: 16 }}>
+                  {/* Row 3 */}
+                  <div className="form-grid-2" style={{ marginBottom: 16 }}>
                     <div className="form-group">
-                      <label className="form-label" htmlFor="inp-service">Service Required</label>
+                      <label className="form-label" htmlFor="inp-service">Service Type</label>
                       <select id="inp-service" className="form-input"
                         value={form.service_type} onChange={e => set('service_type', e.target.value)}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <option value="">Select a service type…</option>
+                        style={{ cursor: 'pointer' }}>
+                        <option value="">Select a service…</option>
                         {SERVICE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
-                  </div>
-
-                  <div style={{ marginBottom: 16 }}>
                     <div className="form-group">
                       <label className="form-label" htmlFor="inp-address">Property Address</label>
-                      <input id="inp-address" className="form-input" placeholder="Property address or suburb"
+                      <input id="inp-address" className="form-input" placeholder="Street, suburb or postcode"
                         value={form.property_address} onChange={e => set('property_address', e.target.value)} />
                     </div>
                   </div>
 
-                  <div style={{ marginBottom: 24 }}>
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="inp-message">Message *</label>
-                      <textarea id="inp-message" className="form-input" rows={5}
-                        placeholder="Tell us about your property, what you need serviced, any specific requirements…"
-                        value={form.message} onChange={e => set('message', e.target.value)}
-                        required
-                        style={{ resize: 'vertical', minHeight: 120 }}
-                      />
-                    </div>
+                  {/* Message */}
+                  <div className="form-group" style={{ marginBottom: 24 }}>
+                    <label className="form-label" htmlFor="inp-message">Message *</label>
+                    <textarea id="inp-message" className="form-input" rows={5}
+                      placeholder="Tell us about your property, the service you need, and any specific requirements…"
+                      value={form.message} onChange={e => set('message', e.target.value)}
+                      required style={{ resize: 'vertical', minHeight: 120 }}
+                    />
                   </div>
 
                   {status === 'error' && (
                     <div style={{
                       display: 'flex', alignItems: 'center', gap: 10,
                       padding: '12px 16px', borderRadius: 10,
-                      background: '#fef2f2', border: '1px solid #fecaca',
-                      marginBottom: 16,
+                      background: '#fef2f2', border: '1px solid #fecaca', marginBottom: 16,
                     }}>
                       <AlertCircle size={16} color="#ef4444" />
                       <span style={{ fontSize: 14, color: '#ef4444' }}>{errorMsg}</span>
@@ -282,17 +304,16 @@ export default function ContactPage() {
                     id="enquiry-submit-btn"
                     disabled={status === 'sending'}
                     className="btn btn-primary"
-                    style={{ width: '100%', gap: 8, fontSize: 15, padding: '14px 0', opacity: status === 'sending' ? 0.7 : 1 }}
+                    style={{ width: '100%', fontSize: 15, padding: '14px 0', opacity: status === 'sending' ? 0.75 : 1 }}
                   >
-                    {status === 'sending' ? (
-                      <><Loader size={17} className="animate-spin-slow" /> Sending Enquiry…</>
-                    ) : (
-                      <><Send size={17} /> Send Enquiry</>
-                    )}
+                    {status === 'sending'
+                      ? <><Loader size={17} className="animate-spin-slow" /> Sending Enquiry…</>
+                      : <><Send size={17} /> Send Enquiry</>
+                    }
                   </button>
 
                   <p style={{ fontSize: 12, color: '#94a3b8', textAlign: 'center', marginTop: 14 }}>
-                    We&apos;ll respond to your enquiry as soon as possible.
+                    We&apos;ll respond within 1 business day.
                   </p>
                 </form>
               )}
@@ -301,12 +322,8 @@ export default function ContactPage() {
         </div>
 
         <style>{`
-          @media (max-width: 900px) {
-            #contact-grid { grid-template-columns: 1fr !important; }
-          }
-          @media (max-width: 640px) {
-            .form-two-col { grid-template-columns: 1fr !important; }
-          }
+          .contact-info-link { transition: opacity 150ms; }
+          .contact-info-link:hover { opacity: 0.75; }
         `}</style>
       </section>
     </>

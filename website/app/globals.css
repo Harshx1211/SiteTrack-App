@@ -84,7 +84,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 /* ─── Keyframes ──────────────────────────────────────────────────────────────── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
@@ -92,39 +92,47 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   to   { opacity: 1; }
 }
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
-@keyframes pulse-ring {
-  0%    { transform: scale(1); opacity: 1; }
-  100%  { transform: scale(1.5); opacity: 0; }
+@keyframes floatA {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
-@keyframes count-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes gradient-shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ─── Utilities ──────────────────────────────────────────────────────────────── */
 .animate-fade-in     { animation: fadeIn 0.4s ease both; }
-.animate-fade-in-up  { animation: fadeInUp 0.5s ease both; }
-.animate-slide-down  { animation: slideDown 0.3s ease both; }
-.animate-float       { animation: float 3s ease-in-out infinite; }
+.animate-fade-in-up  { animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-slide-down  { animation: slideDown 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-slide-right { animation: slideRight 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-float-a     { animation: floatA 3.5s ease-in-out infinite; }
+.animate-float-b     { animation: floatB 4.2s ease-in-out infinite; }
+.animate-float-c     { animation: floatC 3.0s ease-in-out infinite; }
+.animate-page-enter  { animation: pageEnter 0.45s cubic-bezier(0.22,1,0.36,1) both; }
 .animate-spin-slow   { animation: spin 1s linear infinite; }
 
+.delay-50   { animation-delay: 50ms; }
 .delay-100  { animation-delay: 100ms; }
 .delay-150  { animation-delay: 150ms; }
 .delay-200  { animation-delay: 200ms; }
@@ -132,6 +140,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .delay-400  { animation-delay: 400ms; }
 .delay-500  { animation-delay: 500ms; }
 .delay-600  { animation-delay: 600ms; }
+.delay-700  { animation-delay: 700ms; }
 
 /* ─── Section Layout ─────────────────────────────────────────────────────────── */
 .section { padding: 96px 0; }
@@ -145,7 +154,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 /* ─── Typography ─────────────────────────────────────────────────────────────── */
 .heading-xl {
-  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-size: clamp(2.4rem, 5vw, 3.75rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -154,7 +163,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   font-size: clamp(1.75rem, 3.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.025em;
-  line-height: 1.1;
+  line-height: 1.12;
 }
 .heading-md {
   font-size: clamp(1.3rem, 2.5vw, 1.875rem);
@@ -167,7 +176,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   font-weight: 700;
   letter-spacing: -0.015em;
 }
-.body-lg { font-size: 1.125rem; line-height: 1.7; }
+.body-lg { font-size: 1.125rem; line-height: 1.75; }
 .body-md { font-size: 1rem; line-height: 1.65; }
 .body-sm { font-size: 0.875rem; line-height: 1.6; }
 .label {
@@ -206,6 +215,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   cursor: pointer;
   border: none;
   font-family: inherit;
+  letter-spacing: -0.01em;
 }
 
 .btn-primary {
@@ -216,7 +226,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .btn-primary:hover {
   background: var(--orange-dark);
   transform: translateY(-2px);
-  box-shadow: 0 10px 36px rgba(249,115,22,0.48);
+  box-shadow: 0 12px 36px rgba(249,115,22,0.50);
 }
 .btn-primary:active { transform: translateY(0); }
 
@@ -228,17 +238,18 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .btn-navy:hover {
   background: var(--navy-mid);
   transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(27,45,79,0.45);
 }
 
 .btn-outline {
   background: transparent;
   color: white;
-  border: 2px solid rgba(255,255,255,0.35);
+  border: 2px solid rgba(255,255,255,0.30);
   backdrop-filter: blur(8px);
 }
 .btn-outline:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.70);
   transform: translateY(-2px);
 }
 
@@ -259,18 +270,19 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   border: 1px solid var(--slate-200);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--transition), transform var(--transition);
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
 }
 .card:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  border-color: var(--slate-300);
 }
 
 .card-glass {
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.14);
   border-radius: var(--radius-xl);
 }
 
@@ -302,13 +314,30 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   color: var(--slate-900);
   background: white;
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
 .form-input::placeholder { color: var(--slate-400); }
 .form-input:hover { border-color: var(--slate-300); }
 .form-input:focus {
   border-color: var(--navy);
   box-shadow: 0 0 0 3px rgba(27,45,79,0.10);
+  background: white;
+}
+
+/* ─── Responsive form 2-col grid ─────────────────────────────────────────────── */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* ─── Responsive contact grid ───────────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
 }
 
 /* ─── Divider ────────────────────────────────────────────────────────────────── */
@@ -341,29 +370,30 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 20px;
+  border: 1px solid rgba(249,115,22,0.15);
 }
 
-/* ─── Nav ────────────────────────────────────────────────────────────────────── */
+/* ─── Nav links ──────────────────────────────────────────────────────────────── */
 .nav-link {
   font-size: 14.5px;
   font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  transition: color var(--transition-fast);
-  padding: 6px 2px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
   position: relative;
 }
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  height: 2px;
-  background: var(--orange);
-  border-radius: 2px;
-  transform: scaleX(0);
-  transition: transform var(--transition-fast);
+
+/* Active nav state — light (scrolled) */
+.nav-link-active-light {
+  color: var(--navy) !important;
+  background: rgba(27,45,79,0.07);
 }
-.nav-link:hover { color: white; }
-.nav-link:hover::after { transform: scaleX(1); }
+
+/* Active nav state — dark (on hero) */
+.nav-link-active-dark {
+  color: white !important;
+  background: rgba(255,255,255,0.12);
+}
 
 /* Nav scrolled */
 .nav-scrolled .nav-link { color: var(--slate-600); }
@@ -372,8 +402,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 /* ─── Hero mesh gradient ─────────────────────────────────────────────────────── */
 .hero-gradient {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(249,115,22,0.15) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(36,58,101,0.8) 0%, transparent 60%),
+    radial-gradient(ellipse at 18% 55%, rgba(249,115,22,0.18) 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 15%, rgba(36,58,101,0.85) 0%, transparent 60%),
     linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy-dark) 40%, var(--navy) 100%);
 }
 
@@ -387,8 +417,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 /* ─── Feature icon box ───────────────────────────────────────────────────────── */
 .icon-box {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
@@ -396,15 +426,47 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   flex-shrink: 0;
 }
 
+/* ─── Services grid ──────────────────────────────────────────────────────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
-  .section { padding: 64px 0; }
-  .section-sm { padding: 44px 0; }
+  .section { padding: 72px 0; }
+  .section-sm { padding: 48px 0; }
   .container { padding: 0 18px; }
   .btn { padding: 12px 22px; font-size: 14px; }
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
-  .container { padding: 0 14px; }
-  .heading-xl { font-size: 2rem; }
+  .container { padding: 0 16px; }
+  .heading-xl { font-size: 2.1rem; }
 }

@@ -17,9 +17,8 @@ export const metadata: Metadata = {
     'defect repair',
     'fire extinguisher inspection',
     'emergency lighting',
-    'building services',
+    'building services Australia',
     'UMA Building Services',
-    'Australia',
   ],
   openGraph: {
     title: 'UMA Building Services | Fire Safety & Building Compliance',
@@ -36,10 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-AU" suppressHydrationWarning>
+    <html lang="en-AU" suppressHydrationWarning data-scroll-behavior="smooth">
       <body>
         <Navbar />
-        <main>{children}</main>
+        <main className="animate-page-enter">{children}</main>
         <Footer />
       </body>
     </html>
