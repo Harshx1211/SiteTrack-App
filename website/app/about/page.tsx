@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Smartphone, FileBarChart2, Building2, Users, ArrowRight, Target, Cpu } from 'lucide-react';
+import { Smartphone, FileBarChart2, Building2, Users, Target, Cpu } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -31,7 +30,6 @@ export default function AboutPage() {
     <>
       <style>{`
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-cta-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.46) !important; }
         @media (max-width: 900px) {
           .about-grid { grid-template-columns: 1fr !important; }
         }
@@ -173,21 +171,9 @@ export default function AboutPage() {
               <Target size={28} color="#F97316" />
             </div>
             <h2 className="heading-md" style={{ color: '#0F1E3C', marginBottom: 20 }}>Our Focus</h2>
-            <p className="body-lg" style={{ color: '#64748b', lineHeight: 1.85, marginBottom: 36 }}>
+            <p className="body-lg" style={{ color: '#64748b', lineHeight: 1.85 }}>
               We are focused on delivering clear, accurate, and well-documented building maintenance services. Every job we carry out is recorded digitally — every asset checked, every defect logged, every report generated. That is our standard for every site we service.
             </p>
-            <Link href="/contact" id="about-cta"
-              className="about-cta-link"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                padding: '13px 28px', borderRadius: 14, fontSize: 15, fontWeight: 700,
-                background: '#F97316', color: 'white',
-                boxShadow: '0 6px 20px rgba(249,115,22,0.35)',
-                transition: 'all 200ms',
-              }}
-            >
-              Work With Us <ArrowRight size={17} />
-            </Link>
           </div>
         </div>
       </section>

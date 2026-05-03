@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { CalendarClock, Wrench, CheckCircle, ArrowRight, FileText, CheckSquare, Clock } from 'lucide-react';
+import { CalendarClock, Wrench, CheckCircle, FileText, CheckSquare, Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Our Services',
@@ -56,8 +55,7 @@ export default function ServicesPage() {
   return (
     <>
       <style>{`
-        .svc-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.46); }
-        .svc-bottom-link:hover { transform: translateY(-1px); }
+        .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
         @media (max-width: 900px) {
           .svc-grid { grid-template-columns: 1fr !important; }
         }
@@ -145,19 +143,7 @@ export default function ServicesPage() {
                     </div>
                   )}
 
-                  <Link href="/contact"
-                    className="svc-link"
-                    id={`${svc.id}-cta`}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '13px 28px', borderRadius: 14, fontSize: 15, fontWeight: 700,
-                      background: '#F97316', color: 'white',
-                      boxShadow: '0 6px 20px rgba(249,115,22,0.35)',
-                      transition: 'all 200ms',
-                    }}
-                  >
-                    Enquire About This Service <ArrowRight size={17} />
-                  </Link>
+                  {/* No inline CTA — contact is in footer/CTA banner */}
                 </div>
 
                 {/* Right — what's included */}
@@ -201,30 +187,6 @@ export default function ServicesPage() {
         );
       })}
 
-      {/* Bottom CTA */}
-      <section style={{ background: '#F8FAFC', padding: '80px 0' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <FileText size={40} color="#F97316" style={{ margin: '0 auto 20px' }} />
-          <h2 className="heading-md" style={{ color: '#0F1E3C', marginBottom: 14 }}>
-            Not Sure Which Service You Need?
-          </h2>
-          <p className="body-md" style={{ color: '#64748b', maxWidth: 480, margin: '0 auto 32px' }}>
-            Fill in our contact form with your property details and we&apos;ll recommend the right service schedule for your site.
-          </p>
-          <Link href="/contact" id="services-bottom-cta"
-            className="svc-bottom-link"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              padding: '13px 28px', borderRadius: 14, fontSize: 15, fontWeight: 700,
-              background: '#1B2D4F', color: 'white',
-              boxShadow: '0 6px 20px rgba(27,45,79,0.30)',
-              transition: 'all 200ms',
-            }}
-          >
-            Contact Us <ArrowRight size={17} />
-          </Link>
-        </div>
-      </section>
     </>
   );
 }
