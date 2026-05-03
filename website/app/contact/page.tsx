@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Mail, Send, CheckCircle, AlertCircle, Loader, Phone, ClipboardList, CalendarClock } from 'lucide-react';
+import { Mail, Send, CheckCircle, AlertCircle, Loader, Clock } from 'lucide-react';
 
 const SERVICE_OPTIONS = [
   'Routine Service — Monthly',
@@ -121,7 +121,7 @@ export default function ContactPage() {
                     background: 'rgba(27,45,79,0.07)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
-                    <Phone size={18} color="#1B2D4F" />
+                    <Clock size={18} color="#1B2D4F" />
                   </div>
                   <div>
                     <p style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>Response Time</p>
@@ -165,36 +165,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Service quick links */}
-              <div style={{ marginTop: 28 }}>
-                <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#94a3b8', marginBottom: 14 }}>
-                  Popular Services
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {['Monthly', '3-Monthly', 'Annual', 'Defect Repair'].map(s => (
-                    <span key={s}
-                      onClick={() => set('service_type', SERVICE_OPTIONS.find(o => o.includes(s)) ?? '')}
-                      style={{
-                        padding: '5px 12px', borderRadius: 999, fontSize: 12.5, fontWeight: 600,
-                        background: '#f1f5f9', color: '#475569', cursor: 'pointer',
-                        border: '1px solid #e2e8f0', transition: 'all 150ms',
-                      }}
-                      onMouseEnter={e => {
-                        (e.currentTarget as HTMLElement).style.background = 'rgba(249,115,22,0.10)';
-                        (e.currentTarget as HTMLElement).style.color = '#ea6900';
-                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(249,115,22,0.25)';
-                      }}
-                      onMouseLeave={e => {
-                        (e.currentTarget as HTMLElement).style.background = '#f1f5f9';
-                        (e.currentTarget as HTMLElement).style.color = '#475569';
-                        (e.currentTarget as HTMLElement).style.borderColor = '#e2e8f0';
-                      }}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Form card */}

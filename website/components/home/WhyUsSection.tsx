@@ -161,7 +161,7 @@ export default function WhyUsSection() {
         @media (max-width: 900px) {
           .why-header-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .why-feature-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>

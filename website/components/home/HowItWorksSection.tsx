@@ -70,21 +70,18 @@ export default function HowItWorksSection() {
 
         {/* Steps — with connector lines on desktop */}
         <div style={{ position: 'relative' }}>
-          {/* Connector line */}
+          {/* Connector line — runs between icon centres of col 1 and col 3 */}
           <div className="step-connector" style={{
             position: 'absolute',
-            top: 40, left: 'calc(16.67% + 20px)', right: 'calc(16.67% + 20px)',
+            top: 28,
+            left: 'calc(100% / 6)',
+            right: 'calc(100% / 6)',
             height: 2,
-            background: 'linear-gradient(90deg, rgba(249,115,22,0.3), rgba(59,130,246,0.3), rgba(34,197,94,0.3))',
+            background: 'linear-gradient(90deg, rgba(249,115,22,0.35), rgba(59,130,246,0.35), rgba(34,197,94,0.35))',
             pointerEvents: 'none',
           }} />
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 28,
-            position: 'relative',
-          }}>
+          <div className="step-grid" style={{ position: 'relative' }}>
             {STEPS.map((step, i) => {
               const Icon = step.icon;
               return (
@@ -148,11 +145,14 @@ export default function HowItWorksSection() {
       </div>
 
       <style>{`
+        .step-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
         @media (max-width: 768px) {
           .step-connector { display: none; }
-          #how-it-works .container > div > div[style*='grid'] {
-            grid-template-columns: 1fr !important;
-          }
+          .step-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
         }
       `}</style>
     </section>

@@ -33,6 +33,9 @@ export default function AboutPage() {
         @media (max-width: 900px) {
           .about-grid { grid-template-columns: 1fr !important; }
         }
+        @media (max-width: 640px) {
+          .about-platform-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       {/* Hero */}
@@ -129,29 +132,30 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div style={{
+          <div className="about-platform-grid" style={{
             background: 'linear-gradient(135deg, #0F1E3C 0%, #1B2D4F 100%)',
-            borderRadius: 24, padding: '48px 40px',
+            borderRadius: 24, padding: '40px 36px',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             position: 'relative', overflow: 'hidden',
           }}>
             <div style={{
               position: 'absolute', top: -60, right: -40,
               width: 280, height: 280, borderRadius: '50%',
               background: 'rgba(249,115,22,0.10)', filter: 'blur(60px)',
+              pointerEvents: 'none',
             }} />
             {PLATFORM_FEATURES.map((feat, i) => (
               <div key={feat} style={{
                 display: 'flex', alignItems: 'flex-start', gap: 12,
-                padding: '14px 16px',
+                padding: '12px 14px',
                 borderBottom: i < PLATFORM_FEATURES.length - 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
               }}>
                 <div style={{
-                  width: 8, height: 8, borderRadius: '50%',
-                  background: '#F97316', flexShrink: 0, marginTop: 6,
+                  width: 7, height: 7, borderRadius: '50%',
+                  background: '#F97316', flexShrink: 0, marginTop: 7,
                 }} />
-                <span style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>{feat}</span>
+                <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>{feat}</span>
               </div>
             ))}
           </div>

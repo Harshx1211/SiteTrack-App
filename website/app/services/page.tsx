@@ -100,12 +100,7 @@ export default function ServicesPage() {
           <section key={svc.id} id={svc.id} className="section"
             style={{ background: idx % 2 === 0 ? 'white' : '#F8FAFC' }}>
             <div className="container">
-              <div className="svc-grid" style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: 60,
-                alignItems: 'start',
-              }}>
+              <div className="svc-grid">
                 {/* Left */}
                 <div>
                   <div style={{
