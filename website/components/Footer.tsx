@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Flame, Mail, MapPin, ArrowRight, Shield, FileText, Wrench } from 'lucide-react';
+import { Flame, Mail, MapPin, Shield, FileText, Wrench } from 'lucide-react';
 
 const NAV_LINKS = [
   { href: '/',         label: 'Home' },
@@ -18,43 +18,50 @@ const SERVICES = [
 ];
 
 const CAPABILITIES = [
-  { icon: Shield, text: 'Fire safety inspections' },
+  { icon: Shield,   text: 'Fire safety inspections' },
   { icon: FileText, text: 'Digital PDF service reports' },
-  { icon: Wrench, text: 'Defect assessment & repair' },
+  { icon: Wrench,   text: 'Defect assessment & repair' },
+];
+
+const WHY_ITEMS = [
+  { num: '01', title: 'Digital-first',           body: 'Every job managed through our own platform — no paper processes.' },
+  { num: '02', title: 'PDF reports on every job', body: 'A structured service report generated at job completion.' },
+  { num: '03', title: 'Per-asset inspection log', body: 'Each asset logged individually with Pass / Fail results.' },
+  { num: '04', title: 'Defect tracking',          body: 'Defects classified by severity, photographed, and resolved.' },
 ];
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
-      {/* Orange accent line */}
-      <div className="footer-accent-line" />
+    <footer className="uf">
 
-      {/* ── Main footer body ─────────────────────────── */}
-      <div className="footer-body">
+      {/* Orange top accent */}
+      <div className="uf-accent" />
+
+      {/* Main grid */}
+      <div className="uf-body">
         <div className="container">
-          <div className="footer-grid">
+          <div className="uf-grid">
 
-            {/* ── Col 1: Brand ─────────────────────── */}
-            <div className="footer-brand-col">
-              <Link href="/" className="footer-logo">
-                <div className="footer-logo-icon">
+            {/* Brand */}
+            <div className="uf-brand">
+              <Link href="/" className="uf-logo">
+                <div className="uf-logo-icon">
                   <Flame size={20} color="white" strokeWidth={2.5} />
                 </div>
                 <div>
-                  <div className="footer-logo-name">UMA Building</div>
-                  <div className="footer-logo-sub">Services</div>
+                  <div className="uf-logo-name">UMA Building</div>
+                  <div className="uf-logo-sub">Services</div>
                 </div>
               </Link>
 
-              <p className="footer-tagline">
+              <p className="uf-desc">
                 Professional building maintenance and fire safety services for commercial and industrial properties across Australia.
               </p>
 
-              {/* Capability list */}
-              <div className="footer-capabilities">
+              <div className="uf-caps">
                 {CAPABILITIES.map(({ icon: Icon, text }) => (
-                  <div key={text} className="footer-capability">
-                    <div className="footer-cap-icon">
+                  <div key={text} className="uf-cap">
+                    <div className="uf-cap-icon">
                       <Icon size={12} color="#F97316" strokeWidth={2.5} />
                     </div>
                     <span>{text}</span>
@@ -62,65 +69,58 @@ export default function Footer() {
                 ))}
               </div>
 
-              {/* Contact row */}
-              <a href="mailto:info@umabuildingservices.com.au" className="footer-email">
-                <div className="footer-email-icon">
+              <a href="mailto:info@umabuildingservices.com.au" className="uf-email">
+                <div className="uf-email-icon">
                   <Mail size={14} color="#F97316" />
                 </div>
                 info@umabuildingservices.com.au
               </a>
+
+              <div className="uf-location">
+                <MapPin size={13} color="rgba(255,255,255,0.3)" strokeWidth={2} />
+                <span>Servicing sites across Australia</span>
+              </div>
             </div>
 
-            {/* ── Col 2: Navigation ───────────────── */}
+            {/* Navigation */}
             <div>
-              <p className="footer-col-heading">Navigation</p>
-              <nav className="footer-link-list">
+              <p className="uf-heading">Navigation</p>
+              <div className="uf-links">
                 {NAV_LINKS.map(l => (
-                  <Link key={l.href} href={l.href} className="footer-nav-link">
-                    <span className="footer-nav-dot" />
+                  <Link key={l.href} href={l.href} className="uf-link">
+                    <span className="uf-dot" />
                     {l.label}
                   </Link>
                 ))}
-              </nav>
+              </div>
             </div>
 
-            {/* ── Col 3: Services ─────────────────── */}
+            {/* Services */}
             <div>
-              <p className="footer-col-heading">Services</p>
-              <div className="footer-link-list">
+              <p className="uf-heading">Services</p>
+              <div className="uf-links">
                 {SERVICES.map(s => (
-                  <Link key={s.label} href={s.href} className="footer-nav-link">
-                    <span className="footer-nav-dot" />
+                  <Link key={s.label} href={s.href} className="uf-link">
+                    <span className="uf-dot" />
                     {s.label}
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* ── Col 4: Contact card ──────────────── */}
+            {/* Why UMA */}
             <div>
-              <p className="footer-col-heading">Get In Touch</p>
-
-              <div className="footer-contact-card">
-                <div className="footer-contact-card-orb" />
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <p className="footer-contact-card-heading">
-                    Ready to get your property serviced?
-                  </p>
-                  <p className="footer-contact-card-body">
-                    Send us an enquiry and we&apos;ll respond within 1 business day.
-                  </p>
-                  <Link href="/contact" className="footer-contact-btn">
-                    Send Enquiry <ArrowRight size={14} />
-                  </Link>
-
-                  <div className="footer-contact-divider" />
-
-                  <div className="footer-contact-info">
-                    <MapPin size={13} color="rgba(255,255,255,0.35)" />
-                    <span>Servicing commercial &amp; industrial sites across Australia</span>
+              <p className="uf-heading">Why UMA</p>
+              <div className="uf-why">
+                {WHY_ITEMS.map(item => (
+                  <div key={item.num} className="uf-why-item">
+                    <span className="uf-why-num">{item.num}</span>
+                    <div>
+                      <p className="uf-why-title">{item.title}</p>
+                      <p className="uf-why-body">{item.body}</p>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -128,215 +128,163 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Bottom bar ───────────────────────────────── */}
-      <div className="footer-bottom">
+      {/* Bottom bar */}
+      <div className="uf-bottom">
         <div className="container">
-          <div className="footer-bottom-inner">
+          <div className="uf-bottom-inner">
             <span>© {new Date().getFullYear()} UMA Building Services Pty Ltd. All rights reserved.</span>
-            <div className="footer-bottom-links">
-              <Link href="/contact" className="footer-bottom-link">Contact</Link>
-              <span className="footer-bottom-sep" />
-              <Link href="/services" className="footer-bottom-link">Services</Link>
-              <span className="footer-bottom-sep" />
-              <Link href="/about" className="footer-bottom-link">About</Link>
+            <div className="uf-bottom-nav">
+              <Link href="/contact" className="uf-bottom-link">Contact</Link>
+              <span className="uf-bottom-sep" />
+              <Link href="/services" className="uf-bottom-link">Services</Link>
+              <span className="uf-bottom-sep" />
+              <Link href="/about" className="uf-bottom-link">About</Link>
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        /* ── Base ────────────────────────────────── */
-        .site-footer {
-          background: linear-gradient(180deg, #06101f 0%, #090f1f 40%, #0c1830 100%);
-          color: rgba(255,255,255,0.55);
-          border-top: 1px solid rgba(255,255,255,0.04);
+        /* ── Base ── */
+        .uf {
+          background: linear-gradient(180deg, #06101f 0%, #08111f 50%, #0c1830 100%);
+          color: rgba(255,255,255,0.5);
+          border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Orange accent line */
-        .footer-accent-line {
+        /* Orange accent strip */
+        .uf-accent {
           height: 3px;
-          background: linear-gradient(90deg, #F97316 0%, #fb923c 40%, transparent 100%);
+          background: linear-gradient(90deg, #F97316 0%, #fb923c 50%, transparent 100%);
         }
 
-        /* ── Main body ───────────────────────────── */
-        .footer-body { padding: 68px 0 52px; }
+        /* ── Body ── */
+        .uf-body { padding: 64px 0 48px; }
 
-        .footer-grid {
+        /* ── Grid ── */
+        .uf-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
-          gap: 48px 40px;
+          grid-template-columns: 1.6fr 1fr 1.2fr 1.3fr;
+          gap: 40px;
+          align-items: start;
         }
 
-        /* ── Brand col ───────────────────────────── */
-        .footer-logo {
-          display: flex;
-          align-items: center;
-          gap: 11px;
-          margin-bottom: 22px;
-          text-decoration: none;
-          color: inherit;
+        /* ── Brand col ── */
+        .uf-logo {
+          display: flex; align-items: center; gap: 11px;
+          text-decoration: none; color: inherit; margin-bottom: 20px;
         }
-        .footer-logo-icon {
-          width: 44px; height: 44px; border-radius: 13px;
+        .uf-logo-icon {
+          width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
           background: linear-gradient(135deg, #F97316, #ea6900);
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 6px 20px rgba(249,115,22,0.38);
-          flex-shrink: 0;
+          box-shadow: 0 4px 16px rgba(249,115,22,0.35);
         }
-        .footer-logo-name {
-          font-weight: 900; font-size: 17px; color: white;
+        .uf-logo-name {
+          font-size: 16px; font-weight: 900; color: white;
           letter-spacing: -0.025em; line-height: 1.1;
         }
-        .footer-logo-sub {
-          font-weight: 700; font-size: 10px; color: #F97316;
-          letter-spacing: 0.09em; text-transform: uppercase;
-          margin-top: 1px;
+        .uf-logo-sub {
+          font-size: 10px; font-weight: 700; color: #F97316;
+          letter-spacing: 0.09em; text-transform: uppercase; margin-top: 2px;
         }
-
-        .footer-tagline {
-          font-size: 13.5px; line-height: 1.8; max-width: 280px;
-          margin-bottom: 22px; color: rgba(255,255,255,0.42);
+        .uf-desc {
+          font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.40);
+          max-width: 260px; margin-bottom: 20px;
         }
 
         /* Capabilities */
-        .footer-capabilities {
-          display: flex; flex-direction: column; gap: 9px;
-          margin-bottom: 24px;
-        }
-        .footer-capability {
-          display: flex; align-items: center; gap: 9px;
-          font-size: 13px; color: rgba(255,255,255,0.50);
-        }
-        .footer-cap-icon {
-          width: 22px; height: 22px; border-radius: 6px;
-          background: rgba(249,115,22,0.12);
+        .uf-caps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .uf-cap { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,0.45); }
+        .uf-cap-icon {
+          width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+          background: rgba(249,115,22,0.10);
           display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
         }
 
-        /* Email link */
-        .footer-email {
-          display: inline-flex; align-items: center; gap: 9px;
-          font-size: 13px; color: rgba(255,255,255,0.50);
-          text-decoration: none; transition: color 200ms;
-        }
-        .footer-email:hover { color: #F97316; }
-        .footer-email-icon {
-          width: 30px; height: 30px; border-radius: 8px;
-          background: rgba(249,115,22,0.12);
-          display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
-        }
-
-        /* ── Column headings ─────────────────────── */
-        .footer-col-heading {
-          font-size: 11px; font-weight: 800;
-          letter-spacing: 0.10em; text-transform: uppercase;
-          color: rgba(255,255,255,0.85); margin-bottom: 22px;
-        }
-
-        /* ── Nav links ───────────────────────────── */
-        .footer-link-list {
-          display: flex; flex-direction: column; gap: 10px;
-        }
-        .footer-nav-link {
-          display: flex; align-items: center; gap: 8px;
-          font-size: 13.5px; color: rgba(255,255,255,0.45);
-          text-decoration: none; transition: color 200ms;
-        }
-        .footer-nav-link:hover { color: white; }
-        .footer-nav-dot {
-          width: 4px; height: 4px; border-radius: 50%;
-          background: rgba(249,115,22,0.50); flex-shrink: 0;
-          transition: background 200ms;
-        }
-        .footer-nav-link:hover .footer-nav-dot {
-          background: #F97316;
-        }
-
-        /* ── Contact card ────────────────────────── */
-        .footer-contact-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 16px;
-          padding: 22px 20px;
-          position: relative;
-          overflow: hidden;
-        }
-        .footer-contact-card-orb {
-          position: absolute; top: -40px; right: -40px;
-          width: 130px; height: 130px; border-radius: 50%;
-          background: rgba(249,115,22,0.09); filter: blur(30px);
-          pointer-events: none;
-        }
-        .footer-contact-card-heading {
-          font-size: 14px; font-weight: 700; color: white;
-          line-height: 1.45; margin-bottom: 8px; letter-spacing: -0.01em;
-        }
-        .footer-contact-card-body {
+        /* Email */
+        .uf-email {
+          display: inline-flex; align-items: center; gap: 8px;
           font-size: 12.5px; color: rgba(255,255,255,0.45);
-          line-height: 1.65; margin-bottom: 18px;
+          text-decoration: none; transition: color 180ms; margin-bottom: 10px;
         }
-        .footer-contact-btn {
-          display: inline-flex; align-items: center; gap: 6px;
-          padding: 10px 18px; border-radius: 9px;
-          font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
-          background: #F97316; color: white;
-          box-shadow: 0 4px 16px rgba(249,115,22,0.35);
-          text-decoration: none; transition: all 200ms;
-        }
-        .footer-contact-btn:hover {
-          background: #ea6900;
-          transform: translateY(-1px);
-          box-shadow: 0 8px 24px rgba(249,115,22,0.45);
-        }
-        .footer-contact-divider {
-          height: 1px; background: rgba(255,255,255,0.07);
-          margin: 18px 0;
-        }
-        .footer-contact-info {
-          display: flex; align-items: flex-start; gap: 7px;
-          font-size: 12px; color: rgba(255,255,255,0.32); line-height: 1.55;
+        .uf-email:hover { color: #F97316; }
+        .uf-email-icon {
+          width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+          background: rgba(249,115,22,0.12);
+          display: flex; align-items: center; justify-content: center;
         }
 
-        /* ── Bottom bar ──────────────────────────── */
-        .footer-bottom {
-          border-top: 1px solid rgba(255,255,255,0.06);
-          padding: 20px 0;
+        /* Location */
+        .uf-location {
+          display: flex; align-items: center; gap: 7px;
+          font-size: 12px; color: rgba(255,255,255,0.28);
         }
-        .footer-bottom-inner {
-          display: flex; align-items: center;
-          justify-content: space-between; flex-wrap: wrap; gap: 12px;
-          font-size: 12.5px; color: rgba(255,255,255,0.28);
+
+        /* ── Column heading ── */
+        .uf-heading {
+          font-size: 10.5px; font-weight: 800; letter-spacing: 0.10em;
+          text-transform: uppercase; color: rgba(255,255,255,0.80);
+          margin-bottom: 18px;
         }
-        .footer-bottom-links {
-          display: flex; align-items: center; gap: 12px;
-        }
-        .footer-bottom-link {
-          font-size: 12.5px; color: rgba(255,255,255,0.28);
+
+        /* ── Links ── */
+        .uf-links { display: flex; flex-direction: column; gap: 9px; }
+        .uf-link {
+          display: flex; align-items: center; gap: 8px;
+          font-size: 13px; color: rgba(255,255,255,0.42);
           text-decoration: none; transition: color 180ms;
         }
-        .footer-bottom-link:hover { color: rgba(255,255,255,0.65); }
-        .footer-bottom-sep {
-          width: 1px; height: 12px;
-          background: rgba(255,255,255,0.14);
+        .uf-link:hover { color: rgba(255,255,255,0.90); }
+        .uf-dot {
+          width: 3px; height: 3px; border-radius: 50%; flex-shrink: 0;
+          background: rgba(249,115,22,0.45); transition: background 180ms;
+        }
+        .uf-link:hover .uf-dot { background: #F97316; }
+
+        /* ── Why list ── */
+        .uf-why { display: flex; flex-direction: column; gap: 14px; }
+        .uf-why-item { display: flex; align-items: flex-start; gap: 10px; }
+        .uf-why-num {
+          font-size: 9px; font-weight: 900; color: #F97316;
+          letter-spacing: 0.06em; min-width: 18px; flex-shrink: 0;
+          padding-top: 3px; opacity: 0.85;
+        }
+        .uf-why-title {
+          font-size: 12.5px; font-weight: 700;
+          color: rgba(255,255,255,0.70); margin-bottom: 2px;
+          letter-spacing: -0.01em;
+        }
+        .uf-why-body {
+          font-size: 11.5px; color: rgba(255,255,255,0.32); line-height: 1.6;
+        }
+
+        /* ── Bottom bar ── */
+        .uf-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 18px 0; }
+        .uf-bottom-inner {
+          display: flex; align-items: center; justify-content: space-between;
+          flex-wrap: wrap; gap: 10px;
+          font-size: 12px; color: rgba(255,255,255,0.25);
+        }
+        .uf-bottom-nav { display: flex; align-items: center; gap: 10px; }
+        .uf-bottom-link {
+          font-size: 12px; color: rgba(255,255,255,0.25);
+          text-decoration: none; transition: color 180ms;
+        }
+        .uf-bottom-link:hover { color: rgba(255,255,255,0.60); }
+        .uf-bottom-sep {
+          width: 1px; height: 10px; background: rgba(255,255,255,0.12);
           display: inline-block;
         }
 
-        /* ── Responsive ──────────────────────────── */
+        /* ── Responsive ── */
         @media (max-width: 1100px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 40px 36px;
-          }
+          .uf-grid { grid-template-columns: 1fr 1fr; gap: 36px 32px; }
         }
         @media (max-width: 640px) {
-          .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-          }
-          .footer-body { padding: 52px 0 40px; }
-          .footer-bottom-links { display: none; }
+          .uf-grid { grid-template-columns: 1fr; gap: 28px; }
+          .uf-body { padding: 48px 0 36px; }
+          .uf-bottom-nav { display: none; }
         }
       `}</style>
     </footer>

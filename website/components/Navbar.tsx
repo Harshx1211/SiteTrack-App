@@ -88,34 +88,25 @@ export default function Navbar() {
                 href={l.href}
                 id={`nav-${l.label.toLowerCase()}`}
                 style={{
-                  padding: '8px 14px',
-                  borderRadius: 9,
+                  padding: '6px 12px',
                   fontSize: 14.5,
-                  fontWeight: 600,
-                  transition: 'all 200ms',
+                  fontWeight: active ? 700 : 600,
+                  transition: 'color 180ms',
                   letterSpacing: '-0.01em',
                   color: scrolled
-                    ? active ? '#0F1E3C' : '#475569'
-                    : active ? 'white' : 'rgba(255,255,255,0.75)',
-                  background: scrolled
-                    ? active ? 'rgba(15,30,60,0.07)' : 'transparent'
-                    : active ? 'rgba(255,255,255,0.12)' : 'transparent',
-                  borderBottom: active
-                    ? scrolled ? '2px solid #F97316' : '2px solid rgba(249,115,22,0.8)'
-                    : '2px solid transparent',
-                  paddingBottom: active ? '6px' : '8px',
+                    ? active ? '#0F1E3C' : '#64748b'
+                    : active ? 'white' : 'rgba(255,255,255,0.72)',
+                  borderBottom: active ? '2px solid #F97316' : '2px solid transparent',
+                  paddingBottom: '4px',
+                  background: 'transparent',
                 }}
                 onMouseEnter={e => {
-                  if (!active) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = scrolled ? '#0F1E3C' : 'white';
-                    (e.currentTarget as HTMLAnchorElement).style.background = scrolled ? 'rgba(15,30,60,0.05)' : 'rgba(255,255,255,0.08)';
-                  }
+                  (e.currentTarget as HTMLAnchorElement).style.color = scrolled ? '#0F1E3C' : 'white';
                 }}
                 onMouseLeave={e => {
-                  if (!active) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = scrolled ? '#475569' : 'rgba(255,255,255,0.75)';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                  }
+                  (e.currentTarget as HTMLAnchorElement).style.color = scrolled
+                    ? active ? '#0F1E3C' : '#64748b'
+                    : active ? 'white' : 'rgba(255,255,255,0.72)';
                 }}
               >
                 {l.label}
