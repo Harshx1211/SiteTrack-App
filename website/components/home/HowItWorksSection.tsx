@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { ClipboardList, SearchCheck, FileText, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { ClipboardList, SearchCheck, FileText } from 'lucide-react';
 
 const STEPS = [
   {
@@ -145,12 +144,6 @@ export default function HowItWorksSection() {
               );
             })}
           </div>
-        </div>
-
-        <div style={{ textAlign: 'center', marginTop: 52 }}>
-          <Link href="/contact" className="btn btn-primary" id="how-it-works-cta">
-            Get Started <ArrowRight size={17} />
-          </Link>
         </div>
       </div>
 

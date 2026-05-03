@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import Link from 'next/link';
 import {
-  CalendarClock, Wrench, FileText, CheckSquare, ArrowRight
+  CalendarClock, Wrench, FileText, CheckSquare
 } from 'lucide-react';
 
 const SERVICES = [
@@ -153,12 +152,6 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* CTA */}
-        <div style={{ textAlign: 'center', marginTop: 52 }}>
-          <Link href="/contact" className="btn btn-navy" id="services-enquire-btn">
-            Enquire About a Service <ArrowRight size={17} />
-          </Link>
-        </div>
       </div>
     </section>
   );

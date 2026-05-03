@@ -124,31 +124,6 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* CTA */}
-        <Link
-          href="/contact"
-          id="nav-cta"
-          className="hide-mobile-nav"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 7,
-            padding: '10px 20px', borderRadius: 10,
-            fontSize: 14, fontWeight: 700, letterSpacing: '-0.01em',
-            background: '#F97316', color: 'white',
-            boxShadow: '0 4px 18px rgba(249,115,22,0.40)',
-            transition: 'all 200ms', flexShrink: 0,
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)';
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 10px 28px rgba(249,115,22,0.52)';
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)';
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 4px 18px rgba(249,115,22,0.40)';
-          }}
-        >
-          Get a Quote
-        </Link>
-
         {/* Hamburger */}
         <button
           id="nav-hamburger"
@@ -199,19 +174,7 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
-              style={{
-                marginTop: 10, padding: '14px 16px',
-                borderRadius: 10, fontSize: 15, fontWeight: 700,
-                background: '#F97316', color: 'white',
-                textAlign: 'center',
-                boxShadow: '0 4px 18px rgba(249,115,22,0.38)',
-              }}
-            >
-              Get a Quote
-            </Link>
+
           </div>
         </div>
       )}
